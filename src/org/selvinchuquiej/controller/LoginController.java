@@ -8,6 +8,15 @@ package org.selvinchuquiej.controller;
  *
  * @author Selvi
  */
+
 public class LoginController {
 
+    public boolean auntenticar(String usuario, String contrasena) {
+        String usuarioAdmin = "admin";
+        String contrasenaAdmin = "admin";
+        if (usuario.equals(usuarioAdmin) && contrasena.equals(contrasenaAdmin)) {
+            return true;
+        }
+        return false;
+    }
 }

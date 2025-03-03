@@ -8,6 +8,7 @@ package org.selvinchuquiej.model;
  *
  * @author Selvi
  */
+
 public class Login {
     private String usuario;
     private String password;
