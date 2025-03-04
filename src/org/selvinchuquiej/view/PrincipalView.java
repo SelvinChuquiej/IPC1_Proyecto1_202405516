@@ -43,6 +43,8 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnCambiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,14 +53,33 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         jButton6.setText("Retiros");
 
         jButton7.setText("Crear Cuenta");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Registro de usuario");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Buscar Cuentas");
 
         jButton2.setText("Historial Transacciones");
 
         jButton3.setText("Generacion de Reportes");
+
+        jLabel1.setText("Xd");
+
+        btnCambiar.setText("cambiar");
+        btnCambiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,13 +92,20 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton5)
                             .addComponent(jButton8)
-                            .addComponent(jButton7))
-                        .addGap(24, 24, 24))
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton6))
-                .addContainerGap(281, Short.MAX_VALUE))
+                            .addComponent(jButton7)
+                            .addComponent(jButton2)
+                            .addComponent(jButton6))
+                        .addContainerGap(284, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(118, 118, 118))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCambiar)
+                        .addGap(83, 83, 83))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,16 +119,37 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(btnCambiar))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarRegistroUsuarioView();
+        this.ocultar();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
+        // TODO add your handling code here:
+        jLabel1.setText("XdddddddddHOA");
+    }//GEN-LAST:event_btnCambiarActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarCrearCuentaView();
+        this.ocultar();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,6 +187,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCambiar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -145,6 +195,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
     @Override

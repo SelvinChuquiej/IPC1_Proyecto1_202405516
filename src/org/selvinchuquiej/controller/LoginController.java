@@ -12,8 +12,8 @@ package org.selvinchuquiej.controller;
 public class LoginController {
 
     public boolean auntenticar(String usuario, String contrasena) {
-        String usuarioAdmin = "admin";
-        String contrasenaAdmin = "admin";
+        String usuarioAdmin = "AdministradoIPC1D";
+        String contrasenaAdmin = "ipc1D1s2025";
         if (usuario.equals(usuarioAdmin) && contrasena.equals(contrasenaAdmin)) {
             return true;
         }
