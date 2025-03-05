@@ -5,6 +5,7 @@
 package org.selvinchuquiej.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.selvinchuquiej.model.Cuenta;
 
@@ -17,11 +18,11 @@ public class CrearCuentaController {
     private ArrayList<Cuenta> cuentas = new ArrayList<>();
 
     public void agregarCuenta(Cuenta cuenta) {
-
         if (cuentas.size() >= 3) {
             JOptionPane.showMessageDialog(null, "No se puede tener mas de 3 cuentas");
         }
-        
         cuentas.add(cuenta);
     }
+    
+
 }

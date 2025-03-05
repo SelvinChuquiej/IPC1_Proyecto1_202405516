@@ -4,7 +4,9 @@
  */
 package org.selvinchuquiej.view;
 
+import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.LoginController;
+import org.selvinchuquiej.controller.UsuarioController;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 

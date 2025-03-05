@@ -4,6 +4,10 @@
  */
 package org.selvinchuquiej.view;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.selvinchuquiej.controller.UsuarioController;
+import org.selvinchuquiej.model.Usuario;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -17,13 +21,25 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
      * Creates new form CrearCuentaView
      */
     private Principal principal;
+    private UsuarioController usuarioController;
 
     public CrearCuentaView() {
     }
 
-    public CrearCuentaView(Principal principal) {
+  
+    public CrearCuentaView(Principal principal, UsuarioController usuarioController) {
         this.principal = principal;
+        this.usuarioController = usuarioController;
         initComponents();
+    }
+
+    public void cargarUsuarios() {
+        cmbUsuarios.removeAllItems();
+        System.out.println(usuarioController.usuarios);
+        for (int i = 0; i < usuarioController.usuarios.size(); i++) {
+            Usuario usuario = usuarioController.usuarios.get(i);
+            cmbUsuarios.addItem(usuario);
+        }
     }
 
     /**
@@ -35,11 +51,23 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        loginView1 = new org.selvinchuquiej.view.LoginView();
         btnCrear = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cmbTipoCuenta = new javax.swing.JComboBox<>();
+        cmbTipoCuenta1 = new javax.swing.JComboBox<>();
         cmbUsuarios = new javax.swing.JComboBox<>();
+
+        javax.swing.GroupLayout loginView1Layout = new javax.swing.GroupLayout(loginView1.getContentPane());
+        loginView1.getContentPane().setLayout(loginView1Layout);
+        loginView1Layout.setHorizontalGroup(
+            loginView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        loginView1Layout.setVerticalGroup(
+            loginView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,9 +77,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
 
         jLabel2.setText("Tipo de cuenta:");
 
-        cmbTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipoCuenta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monetaria", "Ahorro", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,7 +90,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)
-                        .addComponent(cmbTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTipoCuenta1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -73,12 +99,12 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(cmbTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbTipoCuenta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(btnCrear)
                 .addGap(56, 56, 56))
@@ -124,10 +150,11 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
-    private javax.swing.JComboBox<String> cmbTipoCuenta;
-    private javax.swing.JComboBox<String> cmbUsuarios;
+    private javax.swing.JComboBox<String> cmbTipoCuenta1;
+    private javax.swing.JComboBox<Usuario> cmbUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private org.selvinchuquiej.view.LoginView loginView1;
     // End of variables declaration//GEN-END:variables
 
     @Override

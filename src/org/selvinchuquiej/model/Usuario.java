@@ -58,5 +58,10 @@ public class Usuario {
     public void setCuentasAsociadas(List<Cuenta> cuentasAsociadas) {
         this.cuentasAsociadas = cuentasAsociadas;
     }
+
+    @Override
+    public String toString() {
+        return CUI + " - " + nombreUsuario;
+    }
     
 }

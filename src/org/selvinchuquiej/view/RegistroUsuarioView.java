@@ -21,13 +21,14 @@ public class RegistroUsuarioView extends javax.swing.JFrame implements Ventana {
      */
     private Principal principal;
     private UsuarioController usuarioController;
+    private CrearCuentaView crearCuentaView;
 
     public RegistroUsuarioView() {
     }
 
-    public RegistroUsuarioView(Principal principal) {
+    public RegistroUsuarioView(Principal principal, UsuarioController usuarioController) {
         this.principal = principal;
-        this.usuarioController = new UsuarioController();
+        this.usuarioController = usuarioController;
         initComponents();
     }
 
@@ -157,11 +158,11 @@ public class RegistroUsuarioView extends javax.swing.JFrame implements Ventana {
 
         Usuario nuevoUsuario = new Usuario(cuiUsuario, nombreUsuario, apellidoUsuario);
         usuarioController.agregarUsuario(nuevoUsuario);
-        
+
         txtCUI.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
-        
+
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtCUIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCUIKeyTyped

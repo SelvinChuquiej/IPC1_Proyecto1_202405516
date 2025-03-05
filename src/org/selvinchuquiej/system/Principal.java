@@ -6,6 +6,9 @@ package org.selvinchuquiej.system;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.UsuarioController;
+import org.selvinchuquiej.model.Usuario;
 import org.selvinchuquiej.view.CrearCuentaView;
 import org.selvinchuquiej.view.LoginView;
 import org.selvinchuquiej.view.PrincipalView;
@@ -25,12 +28,17 @@ public class Principal {
     private LoginView loginView;
     private RegistroUsuarioView registroUsuarioView;
     private CrearCuentaView crearCuentaView;
+    private UsuarioController usuarioController;
 
     public Principal() {
+
+        usuarioController = new UsuarioController();
+
         loginView = new LoginView(this);
         principalView = new PrincipalView(this);
-        registroUsuarioView = new RegistroUsuarioView(this);
-        crearCuentaView = new CrearCuentaView(this);
+        registroUsuarioView = new RegistroUsuarioView(this, usuarioController);
+        crearCuentaView = new CrearCuentaView(this, usuarioController);
+
         //mostrarLoginView();
         mostrarPrincipalView();
     }
@@ -38,7 +46,6 @@ public class Principal {
     public void mostrarLoginView() {
         cambiarVentana(loginView);
         loginView.setLocationRelativeTo(null);
-
     }
 
     public void mostrarPrincipalView() {
@@ -54,6 +61,7 @@ public class Principal {
     public void mostrarCrearCuentaView() {
         cambiarVentana(crearCuentaView);
         crearCuentaView.setLocationRelativeTo(null);
+        crearCuentaView.cargarUsuarios();
     }
 
     private void cambiarVentana(Ventana nuevaVentana) {

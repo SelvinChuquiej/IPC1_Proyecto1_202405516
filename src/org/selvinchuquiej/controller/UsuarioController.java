@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.selvinchuquiej.model.Usuario;
+import org.selvinchuquiej.system.Principal;
 
 /**
  *
@@ -15,7 +16,7 @@ import org.selvinchuquiej.model.Usuario;
  */
 public class UsuarioController {
 
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
+    public ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public void agregarUsuario(Usuario usuario) {
         if (cuiDuplicados(usuario.getCUI())) {
@@ -28,7 +29,7 @@ public class UsuarioController {
         }
         usuarios.add(usuario);
         JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
-
+        System.out.println(usuarios);
     }
 
     public boolean cuiDuplicados(int cui) {
@@ -41,8 +42,10 @@ public class UsuarioController {
     }
 
     public void imprimirUsuarios() {
-        for (Usuario usuario : usuarios) {
-            System.out.println("CUI: " + usuario.getCUI() + ", Nombre: " + usuario.getNombreUsuario() + ", Apellido: " + usuario.getApellidoUsuario());
+        for (int i = 0; i < usuarios.size(); i++) {
+            Usuario usuario = usuarios.get(i);
+            System.out.println(usuario.getCUI() + " " + usuario.getNombreUsuario());
         }
     }
+
 }
