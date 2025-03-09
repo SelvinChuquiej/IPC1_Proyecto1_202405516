@@ -4,6 +4,7 @@
  */
 package org.selvinchuquiej.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class Usuario {
     private int CUI;
     private String nombreUsuario;
     private String apellidoUsuario;
-    private List<Cuenta> cuentasAsociadas;
+    private List<Cuenta> cuentasAsociadas = new ArrayList<>();
 
     public Usuario() {
     }
@@ -24,7 +25,13 @@ public class Usuario {
         this.CUI = CUI;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
-        //this.cuentasAsociadas = cuentasAsociadas;
+        this.cuentasAsociadas = new ArrayList<>();
+    }
+
+    public void agregarCuenta(Cuenta cuenta) {
+        if (cuenta != null) {
+            cuentasAsociadas.add(cuenta);
+        }
     }
 
     public int getCUI() {
@@ -47,10 +54,6 @@ public class Usuario {
         return apellidoUsuario;
     }
 
-    public void setApellidoUsuario(String apellidoUsuario) {
-        this.apellidoUsuario = apellidoUsuario;
-    }
-
     public List<Cuenta> getCuentasAsociadas() {
         return cuentasAsociadas;
     }
@@ -59,9 +62,13 @@ public class Usuario {
         this.cuentasAsociadas = cuentasAsociadas;
     }
 
+    public void setApellidoUsuario(String apellidoUsuario) {
+        this.apellidoUsuario = apellidoUsuario;
+    }
+
     @Override
     public String toString() {
-        return CUI + " - " + nombreUsuario;
+        return CUI + " - " + nombreUsuario + " - " + cuentasAsociadas.size();
     }
-    
+
 }

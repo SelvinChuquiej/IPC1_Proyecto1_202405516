@@ -4,9 +4,6 @@
  */
 package org.selvinchuquiej.view;
 
-import org.selvinchuquiej.controller.CrearCuentaController;
-import org.selvinchuquiej.controller.LoginController;
-import org.selvinchuquiej.controller.UsuarioController;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -40,13 +37,11 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
 
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCrearCuenta = new javax.swing.JButton();
+        btnRegistroUsuario = new javax.swing.JButton();
+        btnBuscarCuentas = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        btnCambiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,34 +49,30 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
 
         jButton6.setText("Retiros");
 
-        jButton7.setText("Crear Cuenta");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnCrearCuenta.setText("Crear Cuenta");
+        btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnCrearCuentaActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Registro de usuario");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistroUsuario.setText("Registro de usuario");
+        btnRegistroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnRegistroUsuarioActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Buscar Cuentas");
+        btnBuscarCuentas.setText("Buscar Cuentas");
+        btnBuscarCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCuentasActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Historial Transacciones");
 
         jButton3.setText("Generacion de Reportes");
-
-        jLabel1.setText("Xd");
-
-        btnCambiar.setText("cambiar");
-        btnCambiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,65 +84,58 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton5)
-                            .addComponent(jButton8)
-                            .addComponent(jButton7)
+                            .addComponent(btnRegistroUsuario)
+                            .addComponent(btnCrearCuenta)
                             .addComponent(jButton2)
                             .addComponent(jButton6))
                         .addContainerGap(284, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(118, 118, 118))
+                        .addComponent(btnBuscarCuentas)
+                        .addGap(118, 325, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCambiar)
-                        .addGap(83, 83, 83))))
+                        .addGap(83, 281, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(jButton8)
+                .addComponent(btnRegistroUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
+                .addComponent(btnCrearCuenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                .addComponent(btnBuscarCuentas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(btnCambiar))
+                .addComponent(jButton3)
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btnRegistroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroUsuarioActionPerformed
         // TODO add your handling code here:
         principal.mostrarRegistroUsuarioView();
         this.ocultar();
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btnRegistroUsuarioActionPerformed
 
-    private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
-        // TODO add your handling code here:
-        jLabel1.setText("XdddddddddHOA");
-    }//GEN-LAST:event_btnCambiarActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
         principal.mostrarCrearCuentaView();
         this.ocultar();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnCrearCuentaActionPerformed
+
+    private void btnBuscarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCuentasActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarBuscarCuentasClientesView();
+        this.ocultar();
+    }//GEN-LAST:event_btnBuscarCuentasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,15 +173,13 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCambiar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuscarCuentas;
+    private javax.swing.JButton btnCrearCuenta;
+    private javax.swing.JButton btnRegistroUsuario;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
     @Override
