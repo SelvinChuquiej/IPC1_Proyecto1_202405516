@@ -16,24 +16,24 @@ public class Cuenta {
     private String idCuenta;
     private Cliente usuario;
     private double saldo;
-    private ArrayList<Transaccion> transacciones;
+    public ArrayList<Transaccion> transacciones;
 
     public Cuenta() {
     }
 
     public Cuenta(String idCuenta, Cliente usuario, double saldo) {
-        this.idCuenta = idCuenta + String.format("%03d", contadorId);
+        this.idCuenta = idCuenta + contadorId;
         this.usuario = usuario;
         this.saldo = saldo;
         this.transacciones = new ArrayList<>();
     }
 
-    public ArrayList<Transaccion> getTransaccion() {
+    public ArrayList<Transaccion> getTransacciones() {
         return transacciones;
     }
 
-    public void setTransaccion(ArrayList<Transaccion> transaccion) {
-        this.transacciones = transaccion;
+    public void setTransacciones(ArrayList<Transaccion> transacciones) {
+        this.transacciones = transacciones;
     }
 
     public void depositar(double monto) {

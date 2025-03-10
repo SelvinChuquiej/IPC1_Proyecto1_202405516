@@ -129,10 +129,17 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
         Integer montoDebitado = Integer.parseInt(txtMonto.getText());
 
         Cuenta cuenta = retirosController.cuentaActual(cmbCuentas);
-        if (cuenta != null && montoDebitado > 0) {
-            Transaccion depositoNew = new Transaccion(cuenta, detalle, montoDebitado, 0, cuenta.getSaldo());
-            retirosController.crearRetiro(depositoNew);
-            System.out.println(retirosController.retiros);
+        if (cuenta != null) {
+            double saldoActual = cuenta.getSaldo();
+            if (montoDebitado <= 0) {
+                System.out.println("El monto no puede ser 0 o negativo");
+            } else if (montoDebitado > saldoActual) {
+                System.out.println("Saldo Insuficiente");
+            } else {
+                Transaccion depositoNew = new Transaccion(cuenta, detalle, montoDebitado, 0, cuenta.getSaldo());
+                retirosController.crearRetiro(depositoNew);
+                System.out.println(retirosController.retiros);
+            }
         } else {
             System.out.println("El monto no puede ser 0");
         }

@@ -83,6 +83,11 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         });
 
         jButton2.setText("Historial Transacciones");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Generacion de Reportes");
 
@@ -154,6 +159,12 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         principal.mostrarRetiros();
         this.ocultar();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarHistorialView();
+        this.ocultar();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

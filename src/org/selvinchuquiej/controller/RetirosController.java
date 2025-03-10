@@ -40,7 +40,8 @@ public class RetirosController {
         double nuevoSaldo = cuenta.getSaldo() - transaccion.getMontoDebitado();
         cuenta.setSaldo(nuevoSaldo);
         transaccion.setSaldoDisponible(nuevoSaldo);
-        
+        cuenta.getTransacciones().add(transaccion);
+
         retiros.add(transaccion);
     }
 

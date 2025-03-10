@@ -40,6 +40,7 @@ public class DepositosController {
         double nuevoSaldo = cuenta.getSaldo() + transaccion.getMontoAcreditado();
         cuenta.setSaldo(nuevoSaldo);
         transaccion.setSaldoDisponible(nuevoSaldo);
+        cuenta.getTransacciones().add(transaccion);
         
         depositos.add(transaccion);
     }

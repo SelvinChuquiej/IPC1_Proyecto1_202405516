@@ -11,12 +11,14 @@ import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
+import org.selvinchuquiej.controller.HistorialTransaccionesController;
 import org.selvinchuquiej.controller.RetirosController;
 import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.view.BuscarCuentasView;
 import org.selvinchuquiej.view.CrearCuentaView;
 import org.selvinchuquiej.view.DepositosView;
+import org.selvinchuquiej.view.HistorialTransaccionesView;
 import org.selvinchuquiej.view.LoginView;
 import org.selvinchuquiej.view.PrincipalView;
 import org.selvinchuquiej.view.RegistroClienteView;
@@ -39,12 +41,14 @@ public class Principal {
     private BuscarCuentasView buscarCuentasView;
     private DepositosView depositosView;
     private RetirosView retirosView;
+    private HistorialTransaccionesView historialTransaccionesView;
 
     private RegistroClienteController clienteController;
     private CrearCuentaController crearCuentaController;
     private BuscarCuentasController buscarCuentasController;
     private DepositosController depositosController;
     private RetirosController retirosController;
+    private HistorialTransaccionesController historialTransaccionesController;
 
     private Cuenta cuenta;
 
@@ -55,6 +59,7 @@ public class Principal {
         buscarCuentasController = new BuscarCuentasController(clienteController);
         depositosController = new DepositosController(crearCuentaController);
         retirosController = new RetirosController(crearCuentaController);
+        historialTransaccionesController = new HistorialTransaccionesController(crearCuentaController);
 
         loginView = new LoginView(this);
         principalView = new PrincipalView(this);
@@ -63,7 +68,8 @@ public class Principal {
         buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController);
         depositosView = new DepositosView(this, crearCuentaController, depositosController);
         retirosView = new RetirosView(this, crearCuentaController, retirosController);
-        
+        historialTransaccionesView = new HistorialTransaccionesView(this, historialTransaccionesController);
+
         //mostrarLoginView();
         mostrarPrincipalView();
 
@@ -106,6 +112,11 @@ public class Principal {
         cambiarVentana(retirosView);
         retirosView.setLocationRelativeTo(null);
         retirosView.cargarCuentas();
+    }
+
+    public void mostrarHistorialView() {
+        cambiarVentana(historialTransaccionesView);
+        historialTransaccionesView.setLocationRelativeTo(null);
     }
 
     private void cambiarVentana(Ventana nuevaVentana) {
