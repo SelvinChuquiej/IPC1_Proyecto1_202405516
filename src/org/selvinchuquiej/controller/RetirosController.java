@@ -13,13 +13,13 @@ import org.selvinchuquiej.model.Transaccion;
  *
  * @author Selvi
  */
-public class DepositosController {
+public class RetirosController {
 
     private CrearCuentaController crearCuentaController;
 
-    public ArrayList<Transaccion> depositos = new ArrayList<>();
+    public ArrayList<Transaccion> retiros = new ArrayList<>();
 
-    public DepositosController(CrearCuentaController crearCuentaController) {
+    public RetirosController(CrearCuentaController crearCuentaController) {
         this.crearCuentaController = crearCuentaController;
     }
 
@@ -31,16 +31,17 @@ public class DepositosController {
         }
     }
 
-    public Cuenta cuentaAcutal(JComboBox<Cuenta> cmbCuentas) {
+    public Cuenta cuentaActual(JComboBox<Cuenta> cmbCuentas) {
         return (Cuenta) cmbCuentas.getSelectedItem();
     }
 
-    public void crearDeposito(Transaccion transaccion) {
+    public void crearRetiro(Transaccion transaccion) {
         Cuenta cuenta = transaccion.getIdCuenta();
-        double nuevoSaldo = cuenta.getSaldo() + transaccion.getMontoAcreditado();
+        double nuevoSaldo = cuenta.getSaldo() - transaccion.getMontoDebitado();
         cuenta.setSaldo(nuevoSaldo);
         transaccion.setSaldoDisponible(nuevoSaldo);
         
-        depositos.add(transaccion);
+        retiros.add(transaccion);
     }
+
 }

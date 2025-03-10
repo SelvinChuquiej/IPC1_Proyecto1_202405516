@@ -55,6 +55,11 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         });
 
         jButton6.setText("Retiros");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         btnCrearCuenta.setText("Crear Cuenta");
         btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +148,12 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         principal.mostrarDepositosView();
         this.ocultar();
     }//GEN-LAST:event_btnDepositosActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarRetiros();
+        this.ocultar();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

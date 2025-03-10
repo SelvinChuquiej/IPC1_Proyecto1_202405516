@@ -11,6 +11,7 @@ import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
+import org.selvinchuquiej.controller.RetirosController;
 import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.view.BuscarCuentasView;
@@ -19,6 +20,7 @@ import org.selvinchuquiej.view.DepositosView;
 import org.selvinchuquiej.view.LoginView;
 import org.selvinchuquiej.view.PrincipalView;
 import org.selvinchuquiej.view.RegistroClienteView;
+import org.selvinchuquiej.view.RetirosView;
 
 /**
  *
@@ -36,20 +38,23 @@ public class Principal {
     private CrearCuentaView crearCuentaView;
     private BuscarCuentasView buscarCuentasView;
     private DepositosView depositosView;
+    private RetirosView retirosView;
 
     private RegistroClienteController clienteController;
     private CrearCuentaController crearCuentaController;
     private BuscarCuentasController buscarCuentasController;
     private DepositosController depositosController;
+    private RetirosController retirosController;
 
     private Cuenta cuenta;
-    
+
     public Principal() {
 
         clienteController = new RegistroClienteController();
         crearCuentaController = new CrearCuentaController(clienteController);
-        buscarCuentasController = new BuscarCuentasController(clienteController); 
+        buscarCuentasController = new BuscarCuentasController(clienteController);
         depositosController = new DepositosController(crearCuentaController);
+        retirosController = new RetirosController(crearCuentaController);
 
         loginView = new LoginView(this);
         principalView = new PrincipalView(this);
@@ -57,6 +62,8 @@ public class Principal {
         crearCuentaView = new CrearCuentaView(this, crearCuentaController, crearCuentaController);
         buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController);
         depositosView = new DepositosView(this, crearCuentaController, depositosController);
+        retirosView = new RetirosView(this, crearCuentaController, retirosController);
+        
         //mostrarLoginView();
         mostrarPrincipalView();
 
@@ -93,6 +100,12 @@ public class Principal {
         cambiarVentana(depositosView);
         depositosView.setLocationRelativeTo(null);
         depositosView.cargarCuentas();
+    }
+
+    public void mostrarRetiros() {
+        cambiarVentana(retirosView);
+        retirosView.setLocationRelativeTo(null);
+        retirosView.cargarCuentas();
     }
 
     private void cambiarVentana(Ventana nuevaVentana) {
