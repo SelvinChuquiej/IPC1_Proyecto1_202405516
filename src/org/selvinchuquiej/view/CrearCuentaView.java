@@ -6,10 +6,11 @@ package org.selvinchuquiej.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.selvinchuquiej.controller.CuentaController;
-import org.selvinchuquiej.controller.UsuarioController;
+import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.RegistroClienteController;
+import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.model.Cuenta;
-import org.selvinchuquiej.model.Usuario;
+import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -23,21 +24,22 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
      * Creates new form CrearCuentaView
      */
     private Principal principal;
-    private UsuarioController usuarioController;
-    private CuentaController cuentaController;
+    private CrearCuentaController cuentaController;
+    private CrearCuentaController crearCuentaController;
+    
 
     public CrearCuentaView() {
     }
 
-    public CrearCuentaView(Principal principal, UsuarioController usuarioController) {
+    public CrearCuentaView(Principal principal, CrearCuentaController crearCuentaController, CrearCuentaController cuentaController) {
         this.principal = principal;
-        this.usuarioController = usuarioController;
-        this.cuentaController = new CuentaController(usuarioController);
+        this.crearCuentaController = crearCuentaController;
+        this.cuentaController = cuentaController;
         initComponents();
     }
 
     public void cargarUsuarios() {
-        usuarioController.cargarUsuario(cmbUsuarios);
+        crearCuentaController.cargarClientes(cmbUsuarios);
     }
 
     /**
@@ -77,6 +79,12 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
 
         jLabel1.setText("Usuario:");
 
+        cmbUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbUsuariosActionPerformed(evt);
+            }
+        });
+
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,11 +115,11 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(btnRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(62, 62, 62)
                 .addComponent(btnCrear)
                 .addGap(56, 56, 56))
         );
@@ -127,13 +135,17 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        String idCuenta = "D2D025";
-        Usuario usuarioSelec = (Usuario) cmbUsuarios.getSelectedItem();
+        String idCuenta = "D2D025-";
         int saldo = 0;
+        Cliente usuarioSelec = (Cliente) cmbUsuarios.getSelectedItem();
         
         Cuenta nuevaCuenta = new Cuenta(idCuenta, usuarioSelec, saldo);
-        cuentaController.agregarCuenta(nuevaCuenta);
+        cuentaController.agregarCuenta(nuevaCuenta); 
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void cmbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,7 +185,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<Usuario> cmbUsuarios;
+    private javax.swing.JComboBox<org.selvinchuquiej.model.Cliente> cmbUsuarios;
     private javax.swing.JLabel jLabel1;
     private org.selvinchuquiej.view.LoginView loginView1;
     // End of variables declaration//GEN-END:variables

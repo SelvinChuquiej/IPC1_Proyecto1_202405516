@@ -5,8 +5,8 @@
 package org.selvinchuquiej.view;
 
 import java.awt.event.KeyEvent;
-import org.selvinchuquiej.controller.UsuarioController;
-import org.selvinchuquiej.model.Usuario;
+import org.selvinchuquiej.controller.RegistroClienteController;
+import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -14,19 +14,19 @@ import org.selvinchuquiej.system.Ventana;
  *
  * @author Selvi
  */
-public class RegistroUsuarioView extends javax.swing.JFrame implements Ventana {
+public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
 
     /**
      * Creates new form RegistroUsuarioView
      */
     private Principal principal;
-    private UsuarioController usuarioController;
+    private RegistroClienteController usuarioController;
     private CrearCuentaView crearCuentaView;
 
-    public RegistroUsuarioView() {
+    public RegistroClienteView() {
     }
 
-    public RegistroUsuarioView(Principal principal, UsuarioController usuarioController) {
+    public RegistroClienteView(Principal principal, RegistroClienteController usuarioController) {
         this.principal = principal;
         this.usuarioController = usuarioController;
         initComponents();
@@ -140,7 +140,7 @@ public class RegistroUsuarioView extends javax.swing.JFrame implements Ventana {
         String nombreUsuario = txtNombre.getText();
         String apellidoUsuario = txtApellido.getText();
 
-        Usuario nuevoUsuario = new Usuario(cuiUsuario, nombreUsuario, apellidoUsuario);
+        Cliente nuevoUsuario = new Cliente(cuiUsuario, nombreUsuario, apellidoUsuario);
         usuarioController.agregarUsuario(nuevoUsuario);
 
         txtCUI.setText("");
@@ -174,20 +174,21 @@ public class RegistroUsuarioView extends javax.swing.JFrame implements Ventana {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroUsuarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistroUsuarioView().setVisible(true);
+                new RegistroClienteView().setVisible(true);
             }
         });
     }

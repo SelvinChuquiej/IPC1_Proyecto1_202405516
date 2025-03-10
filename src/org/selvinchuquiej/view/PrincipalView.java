@@ -4,6 +4,7 @@
  */
 package org.selvinchuquiej.view;
 
+import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -17,6 +18,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
      * Creates new form PrincipalView
      */
     private Principal principal;
+    private CrearCuentaController cuentaController;
 
     public PrincipalView() {
     }
@@ -35,7 +37,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton5 = new javax.swing.JButton();
+        btnDepositos = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         btnCrearCuenta = new javax.swing.JButton();
         btnRegistroUsuario = new javax.swing.JButton();
@@ -45,7 +47,12 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton5.setText("Depositos");
+        btnDepositos.setText("Depositos");
+        btnDepositos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositosActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Retiros");
 
@@ -81,20 +88,14 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5)
-                            .addComponent(btnRegistroUsuario)
-                            .addComponent(btnCrearCuenta)
-                            .addComponent(jButton2)
-                            .addComponent(jButton6))
-                        .addContainerGap(284, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBuscarCuentas)
-                        .addGap(118, 325, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(83, 281, Short.MAX_VALUE))))
+                    .addComponent(btnDepositos)
+                    .addComponent(btnRegistroUsuario)
+                    .addComponent(btnCrearCuenta)
+                    .addComponent(jButton2)
+                    .addComponent(jButton6)
+                    .addComponent(btnBuscarCuentas)
+                    .addComponent(jButton3))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +107,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(btnDepositos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscarCuentas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -136,6 +137,12 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         principal.mostrarBuscarCuentasClientesView();
         this.ocultar();
     }//GEN-LAST:event_btnBuscarCuentasActionPerformed
+
+    private void btnDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositosActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarDepositosView();
+        this.ocultar();
+    }//GEN-LAST:event_btnDepositosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,10 +182,10 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCuentas;
     private javax.swing.JButton btnCrearCuenta;
+    private javax.swing.JButton btnDepositos;
     private javax.swing.JButton btnRegistroUsuario;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     // End of variables declaration//GEN-END:variables
 

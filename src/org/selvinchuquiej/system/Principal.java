@@ -6,14 +6,18 @@ package org.selvinchuquiej.system;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import org.selvinchuquiej.controller.CuentaController;
-import org.selvinchuquiej.controller.UsuarioController;
-import org.selvinchuquiej.model.Usuario;
-import org.selvinchuquiej.view.BuscarCuentasClientesView;
+import org.selvinchuquiej.controller.BuscarCuentasController;
+import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.RegistroClienteController;
+import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.DepositosController;
+import org.selvinchuquiej.model.Cliente;
+import org.selvinchuquiej.view.BuscarCuentasView;
 import org.selvinchuquiej.view.CrearCuentaView;
+import org.selvinchuquiej.view.DepositosView;
 import org.selvinchuquiej.view.LoginView;
 import org.selvinchuquiej.view.PrincipalView;
-import org.selvinchuquiej.view.RegistroUsuarioView;
+import org.selvinchuquiej.view.RegistroClienteView;
 
 /**
  *
@@ -27,25 +31,29 @@ public class Principal {
     private JFrame ventanaActual;
     private PrincipalView principalView;
     private LoginView loginView;
-    private RegistroUsuarioView registroUsuarioView;
+    private RegistroClienteView registroUsuarioView;
     private CrearCuentaView crearCuentaView;
-    private BuscarCuentasClientesView buscarCuentasClientesView;
+    private BuscarCuentasView buscarCuentasView;
+    private DepositosView depositosView;
 
-    private UsuarioController usuarioController;
-    private CuentaController cuentaController;
+    private RegistroClienteController clienteController;
+    private CrearCuentaController crearCuentaController;
+    private BuscarCuentasController buscarCuentasController;
+    private DepositosController depositosController;
 
     public Principal() {
 
-        usuarioController = new UsuarioController();
-        cuentaController = new CuentaController(usuarioController);
+        clienteController = new RegistroClienteController();
+        crearCuentaController = new CrearCuentaController(clienteController);
+        buscarCuentasController = new BuscarCuentasController(clienteController); 
+        depositosController = new DepositosController(crearCuentaController);
 
         loginView = new LoginView(this);
         principalView = new PrincipalView(this);
-        registroUsuarioView = new RegistroUsuarioView(this, usuarioController);
-        crearCuentaView = new CrearCuentaView(this, usuarioController);
-
-        buscarCuentasClientesView = new BuscarCuentasClientesView(this, usuarioController, cuentaController);
-
+        registroUsuarioView = new RegistroClienteView(this, clienteController);
+        crearCuentaView = new CrearCuentaView(this, crearCuentaController, crearCuentaController);
+        buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController);
+        depositosView = new DepositosView(this, crearCuentaController);
         //mostrarLoginView();
         mostrarPrincipalView();
 
@@ -73,11 +81,15 @@ public class Principal {
     }
 
     public void mostrarBuscarCuentasClientesView() {
-        cambiarVentana(buscarCuentasClientesView);
-        buscarCuentasClientesView.setLocationRelativeTo(null);
-        buscarCuentasClientesView.cargarUsuarios();
+        cambiarVentana(buscarCuentasView);
+        buscarCuentasView.setLocationRelativeTo(null);
+        buscarCuentasView.cargarUsuarios();
+    }
 
-        System.out.println(usuarioController.usuarios);
+    public void mostrarDepositosView() {
+        cambiarVentana(depositosView);
+        depositosView.setLocationRelativeTo(null);
+        depositosView.cargarCuentas();
     }
 
     private void cambiarVentana(Ventana nuevaVentana) {

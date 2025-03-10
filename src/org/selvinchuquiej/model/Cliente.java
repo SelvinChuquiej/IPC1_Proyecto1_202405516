@@ -11,17 +11,17 @@ import java.util.List;
  *
  * @author Selvi
  */
-public class Usuario {
+public class Cliente {
 
     private int CUI;
     private String nombreUsuario;
     private String apellidoUsuario;
-    private List<Cuenta> cuentasAsociadas = new ArrayList<>();
+    private List<Cuenta> cuentasAsociadas;
 
-    public Usuario() {
+    public Cliente() {
     }
 
-    public Usuario(int CUI, String nombreUsuario, String apellidoUsuario) {
+    public Cliente(int CUI, String nombreUsuario, String apellidoUsuario) {
         this.CUI = CUI;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -68,7 +68,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return CUI + " - " + nombreUsuario + " - " + cuentasAsociadas.size();
+        return CUI + " | " + nombreUsuario + " " + apellidoUsuario;
     }
 
 }

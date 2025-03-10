@@ -10,15 +10,16 @@ package org.selvinchuquiej.model;
  */
 public class Cuenta {
 
+    public static int contadorId = 0;
     private String idCuenta;
-    private Usuario usuario;
+    private Cliente usuario;
     private double saldo;
 
     public Cuenta() {
     }
 
-    public Cuenta(String idCuenta, Usuario usuario, double saldo) {
-        this.idCuenta = idCuenta;
+    public Cuenta(String idCuenta, Cliente usuario, double saldo) {
+        this.idCuenta = idCuenta + String.format("%03d", contadorId);
         this.usuario = usuario;
         this.saldo = saldo;
     }
@@ -31,11 +32,11 @@ public class Cuenta {
         this.idCuenta = idCuenta;
     }
 
-    public Usuario getUsuario() {
+    public Cliente getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Cliente usuario) {
         this.usuario = usuario;
     }
 
@@ -49,8 +50,7 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return "idCuenta=" + idCuenta + ", usuario=" + usuario ;
+        return idCuenta + " | " + usuario.getNombreUsuario();
     }
-    
-    
+
 }

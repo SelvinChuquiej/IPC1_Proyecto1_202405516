@@ -4,17 +4,37 @@
  */
 package org.selvinchuquiej.view;
 
+import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.RegistroClienteController;
+import org.selvinchuquiej.model.Cuenta;
+import org.selvinchuquiej.system.Principal;
+import org.selvinchuquiej.system.Ventana;
+
 /**
  *
  * @author Selvi
  */
-public class DepositosView extends javax.swing.JFrame {
+public class DepositosView extends javax.swing.JFrame implements Ventana {
 
     /**
      * Creates new form DepositosView
      */
+    private Principal principal;
+    private CrearCuentaController cuentaController;
+    private RegistroClienteController usuarioController;
+
     public DepositosView() {
+    }
+
+    public DepositosView(Principal principal, CrearCuentaController cuentaController) {
+        this.principal = principal;
+        this.usuarioController = usuarioController;
+        this.cuentaController = cuentaController;
         initComponents();
+    }
+
+    public void cargarCuentas() {
+        cuentaController.cargarCuenta(cmbCuentas);
     }
 
     /**
@@ -26,21 +46,74 @@ public class DepositosView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cmbCuentas = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        txtMonto = new javax.swing.JSpinner();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Cuenta");
+
+        jLabel2.setText("Monto");
+
+        btnAceptar.setText("Aceptar");
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnAceptar)
+                                .addComponent(cmbCuentas, javax.swing.GroupLayout.Alignment.LEADING, 0, 275, Short.MAX_VALUE)
+                                .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegresar)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btnRegresar)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(btnAceptar)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarPrincipalView();
+        this.ocultar();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +151,21 @@ public class DepositosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<Cuenta> cmbCuentas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSpinner txtMonto;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrar() {
+        setVisible(true);
+    }
+
+    @Override
+    public void ocultar() {
+        setVisible(false);
+    }
 }
