@@ -19,8 +19,8 @@ public class RegistroClienteController {
     
     public ArrayList<Cliente> clientes = new ArrayList<>();
     
-    public void agregarUsuario(Cliente usuario) {
-        if (cuiDuplicados(usuario.getCUI())) {
+    public void agregarUsuario(Cliente cliente) {
+        if (cuiDuplicados(cliente.getCUI())) {
             JOptionPane.showMessageDialog(null, "Este CUI ya se encuentra en uso");
             return;
         }
@@ -28,7 +28,7 @@ public class RegistroClienteController {
             JOptionPane.showMessageDialog(null, "No se pueden agregar mas de 6 usuario");
             return;
         }
-        clientes.add(usuario);
+        clientes.add(cliente);
         JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
         System.out.println(clientes);
     }

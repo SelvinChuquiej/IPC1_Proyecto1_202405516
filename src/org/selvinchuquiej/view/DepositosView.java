@@ -4,9 +4,12 @@
  */
 package org.selvinchuquiej.view;
 
+import java.time.LocalDateTime;
 import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.model.Cuenta;
+import org.selvinchuquiej.model.Transaccion;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -20,16 +23,17 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
      * Creates new form DepositosView
      */
     private Principal principal;
+    private Transaccion transaccion;
     private CrearCuentaController cuentaController;
-    private RegistroClienteController usuarioController;
+    private DepositosController depositosController;
 
     public DepositosView() {
     }
 
-    public DepositosView(Principal principal, CrearCuentaController cuentaController) {
+    public DepositosView(Principal principal, CrearCuentaController cuentaController, DepositosController depositosController) {
         this.principal = principal;
-        this.usuarioController = usuarioController;
         this.cuentaController = cuentaController;
+        this.depositosController = depositosController;
         initComponents();
     }
 
@@ -51,7 +55,7 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
         jLabel2 = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
-        txtMonto = new javax.swing.JSpinner();
+        txtMonto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +64,11 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
         jLabel2.setText("Monto");
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,13 +85,12 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnAceptar)
-                                .addComponent(cmbCuentas, javax.swing.GroupLayout.Alignment.LEADING, 0, 275, Short.MAX_VALUE)
-                                .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel2)))
+                            .addComponent(btnAceptar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbCuentas, 0, 275, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtMonto)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnRegresar)))
@@ -99,9 +107,9 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
                 .addComponent(cmbCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(33, 33, 33)
                 .addComponent(btnAceptar)
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -114,6 +122,22 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
         principal.mostrarPrincipalView();
         this.ocultar();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        // TODO add your handling code here:
+        String detalle = "Deposito";
+        Integer montoAcreditado = Integer.parseInt(txtMonto.getText());
+
+        Cuenta cuenta = depositosController.cuentaAcutal(cmbCuentas);
+        if (cuenta != null && montoAcreditado > 0) {
+            double saldoFinal = cuenta.getSaldo() + montoAcreditado;
+            Transaccion depositoNew = new Transaccion(cuenta, detalle, 0, montoAcreditado, saldoFinal);
+            depositosController.crearDeposito(depositoNew);
+            System.out.println(depositosController.depositos);
+        } else {
+            System.out.println("El monto no puede ser 0");
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,7 +180,7 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
     private javax.swing.JComboBox<Cuenta> cmbCuentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JSpinner txtMonto;
+    private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 
     @Override

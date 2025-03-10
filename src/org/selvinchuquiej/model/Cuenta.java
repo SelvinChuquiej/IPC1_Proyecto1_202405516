@@ -4,6 +4,8 @@
  */
 package org.selvinchuquiej.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Selvi
@@ -14,6 +16,7 @@ public class Cuenta {
     private String idCuenta;
     private Cliente usuario;
     private double saldo;
+    private ArrayList<Transaccion> transacciones;
 
     public Cuenta() {
     }
@@ -22,6 +25,24 @@ public class Cuenta {
         this.idCuenta = idCuenta + String.format("%03d", contadorId);
         this.usuario = usuario;
         this.saldo = saldo;
+        this.transacciones = new ArrayList<>();
+    }
+
+    public ArrayList<Transaccion> getTransaccion() {
+        return transacciones;
+    }
+
+    public void setTransaccion(ArrayList<Transaccion> transaccion) {
+        this.transacciones = transaccion;
+    }
+
+    public void depositar(double monto) {
+        if (monto > 0) {
+            this.saldo += monto;
+            System.out.println("Depósito realizado. Nuevo saldo: " + this.saldo);
+        } else {
+            System.out.println("El monto debe ser mayor que 0.");
+        }
     }
 
     public String getIdCuenta() {
@@ -50,7 +71,7 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return idCuenta + " | " + usuario.getNombreUsuario();
+        return idCuenta + " | " + usuario.getNombreUsuario() + " | Q " + saldo;
     }
 
 }

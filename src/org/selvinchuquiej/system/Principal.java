@@ -12,6 +12,7 @@ import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.model.Cliente;
+import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.view.BuscarCuentasView;
 import org.selvinchuquiej.view.CrearCuentaView;
 import org.selvinchuquiej.view.DepositosView;
@@ -41,6 +42,8 @@ public class Principal {
     private BuscarCuentasController buscarCuentasController;
     private DepositosController depositosController;
 
+    private Cuenta cuenta;
+    
     public Principal() {
 
         clienteController = new RegistroClienteController();
@@ -53,7 +56,7 @@ public class Principal {
         registroUsuarioView = new RegistroClienteView(this, clienteController);
         crearCuentaView = new CrearCuentaView(this, crearCuentaController, crearCuentaController);
         buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController);
-        depositosView = new DepositosView(this, crearCuentaController);
+        depositosView = new DepositosView(this, crearCuentaController, depositosController);
         //mostrarLoginView();
         mostrarPrincipalView();
 

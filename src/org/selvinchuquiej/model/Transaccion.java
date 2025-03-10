@@ -5,6 +5,7 @@
 package org.selvinchuquiej.model;
 
 import java.time.LocalDateTime;
+import static org.selvinchuquiej.model.Cuenta.contadorId;
 
 /**
  *
@@ -13,18 +14,21 @@ import java.time.LocalDateTime;
 public class Transaccion {
 
     private String idTransaccion;
+    private Cuenta idCuenta;
     private LocalDateTime fechaHora;
     private String detalle;
     private double montoDebitado;
     private double montoAcreditado;
     private double saldoDisponible;
+    public static int contadorId = 0;
 
     public Transaccion() {
     }
 
-    public Transaccion(String idTransaccion, LocalDateTime fechaHora, String detalle, double montoDebitado, double montoAcreditado, double saldoDisponible) {
-        this.idTransaccion = idTransaccion;
-        this.fechaHora = fechaHora;
+    public Transaccion(Cuenta idCuenta, String detalle, double montoDebitado, double montoAcreditado, double saldoDisponible) {
+        this.idTransaccion = "1" + String.format("%03d", contadorId++);
+        this.idCuenta = idCuenta;
+        this.fechaHora = LocalDateTime.now();
         this.detalle = detalle;
         this.montoDebitado = montoDebitado;
         this.montoAcreditado = montoAcreditado;
@@ -37,6 +41,14 @@ public class Transaccion {
 
     public void setIdTransaccion(String idTransaccion) {
         this.idTransaccion = idTransaccion;
+    }
+
+    public Cuenta getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(Cuenta idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
     public LocalDateTime getFechaHora() {
@@ -81,7 +93,7 @@ public class Transaccion {
 
     @Override
     public String toString() {
-        return "Transaccion{" + "idTransaccion=" + idTransaccion + ", fechaHora=" + fechaHora + ", detalle=" + detalle + ", montoDebitado=" + montoDebitado + ", montoAcreditado=" + montoAcreditado + ", saldoDisponible=" + saldoDisponible + '}';
+        return idTransaccion + " | " + detalle + " | " + montoDebitado + " | " + montoAcreditado + " | " + saldoDisponible;
     }
 
 }

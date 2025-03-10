@@ -4,8 +4,10 @@
  */
 package org.selvinchuquiej.controller;
 
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import org.selvinchuquiej.model.Cuenta;
+import org.selvinchuquiej.model.Transaccion;
 
 /**
  *
@@ -14,6 +16,8 @@ import org.selvinchuquiej.model.Cuenta;
 public class DepositosController {
 
     private CrearCuentaController crearCuentaController;
+
+    public ArrayList<Transaccion> depositos = new ArrayList<>();
 
     public DepositosController(CrearCuentaController crearCuentaController) {
         this.crearCuentaController = crearCuentaController;
@@ -25,5 +29,14 @@ public class DepositosController {
             Cuenta cuenta = crearCuentaController.cuentas.get(i);
             cmbCuentas.addItem(cuenta);
         }
+    }
+
+    public Cuenta cuentaAcutal(JComboBox<Cuenta> cmbCuentas) {
+        return (Cuenta) cmbCuentas.getSelectedItem();
+    }
+
+    public void crearDeposito(Transaccion transaccion) {
+        depositos.add(transaccion);
+        transaccion.getIdCuenta().setSaldo(transaccion.getSaldoDisponible());
     }
 }
