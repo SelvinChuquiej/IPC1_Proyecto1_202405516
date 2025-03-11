@@ -5,7 +5,6 @@
 package org.selvinchuquiej.view;
 
 import org.selvinchuquiej.controller.CrearCuentaController;
-import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.controller.RetirosController;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Transaccion;

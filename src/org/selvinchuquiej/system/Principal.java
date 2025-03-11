@@ -4,24 +4,27 @@
  */
 package org.selvinchuquiej.system;
 
+import com.itextpdf.text.DocumentException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import org.selvinchuquiej.controller.BuscarCuentasController;
-import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.controller.HistorialTransaccionesController;
 import org.selvinchuquiej.controller.RetirosController;
-import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.view.BuscarCuentasView;
 import org.selvinchuquiej.view.CrearCuentaView;
+import org.selvinchuquiej.view.DepositosRealizadosPDFView;
 import org.selvinchuquiej.view.DepositosView;
+import org.selvinchuquiej.view.GeneracionReportesView;
+import org.selvinchuquiej.view.HistorialTransaccionesPDFView;
 import org.selvinchuquiej.view.HistorialTransaccionesView;
 import org.selvinchuquiej.view.LoginView;
 import org.selvinchuquiej.view.PrincipalView;
 import org.selvinchuquiej.view.RegistroClienteView;
+import org.selvinchuquiej.view.RetirosRealizadosPDFView;
 import org.selvinchuquiej.view.RetirosView;
 
 /**
@@ -42,6 +45,8 @@ public class Principal {
     private DepositosView depositosView;
     private RetirosView retirosView;
     private HistorialTransaccionesView historialTransaccionesView;
+    private GeneracionReportesView generacionReportesView;
+    private HistorialTransaccionesPDFView historialTransaccionesPDFView;
 
     private RegistroClienteController clienteController;
     private CrearCuentaController crearCuentaController;
@@ -69,6 +74,7 @@ public class Principal {
         depositosView = new DepositosView(this, crearCuentaController, depositosController);
         retirosView = new RetirosView(this, crearCuentaController, retirosController);
         historialTransaccionesView = new HistorialTransaccionesView(this, historialTransaccionesController);
+        generacionReportesView = new GeneracionReportesView(this);
 
         //mostrarLoginView();
         mostrarPrincipalView();
@@ -119,6 +125,16 @@ public class Principal {
         historialTransaccionesView.setLocationRelativeTo(null);
     }
 
+    public void mostrarGeneracionReportesView() {
+        cambiarVentana(generacionReportesView);
+        generacionReportesView.setLocationRelativeTo(null);
+    }
+
+    public void mostrarHistorialTransPDFView() {
+        cambiarVentana(historialTransaccionesPDFView);
+        historialTransaccionesPDFView.setLocationRelativeTo(null);
+    }
+
     private void cambiarVentana(Ventana nuevaVentana) {
         if (ventanaActual != null) {
             ventanaActual.setVisible(true);
@@ -127,8 +143,7 @@ public class Principal {
         ventanaActual = (JFrame) nuevaVentana;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DocumentException {
         SwingUtilities.invokeLater(() -> new Principal());
     }
-
 }

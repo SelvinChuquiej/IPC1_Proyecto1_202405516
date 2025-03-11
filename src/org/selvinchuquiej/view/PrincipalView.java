@@ -90,6 +90,11 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         });
 
         jButton3.setText("Generacion de Reportes");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +170,12 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         principal.mostrarHistorialView();
         this.ocultar();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        principal.mostrarGeneracionReportesView();
+        this.ocultar();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

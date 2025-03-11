@@ -5,7 +5,6 @@
 package org.selvinchuquiej.view;
 
 import javax.swing.table.DefaultTableModel;
-import org.selvinchuquiej.controller.BuscarCuentasController;
 import org.selvinchuquiej.controller.HistorialTransaccionesController;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.system.Principal;
