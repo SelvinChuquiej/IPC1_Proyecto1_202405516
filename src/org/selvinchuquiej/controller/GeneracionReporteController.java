@@ -27,7 +27,7 @@ public class GeneracionReporteController {
 
         for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
             Cuenta cuentaT = crearCuentaController.cuentas.get(i);
-            if (cuentaT.getUsuario().getCUI() == Integer.parseInt(CUI)) {
+            if (cuentaT.getUsuario().getCUI() == CUI) {
                 Collections.reverse(cuentaT.getTransacciones());
                 transaccionesEncontradas.addAll(cuentaT.getTransacciones());
                 break;
@@ -41,7 +41,7 @@ public class GeneracionReporteController {
 
         for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
             Cuenta cuentaT = crearCuentaController.cuentas.get(i);
-            if (cuentaT.getUsuario().getCUI() == Integer.parseInt(CUI)) {
+            if (cuentaT.getUsuario().getCUI() == CUI) {
                 for (int j = 0; j < cuentaT.getTransacciones().size(); j++) {
                     Transaccion transaccionDep = cuentaT.getTransacciones().get(j);
                     if (transaccionDep.getMontoDebitado() == 0) {
@@ -60,7 +60,7 @@ public class GeneracionReporteController {
 
         for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
             Cuenta cuentaT = crearCuentaController.cuentas.get(i);
-            if (cuentaT.getUsuario().getCUI() == Integer.parseInt(CUI)) {
+            if (cuentaT.getUsuario().getCUI() == CUI) {
                 for (int j = 0; j < cuentaT.getTransacciones().size(); j++) {
                     Transaccion transaccionDep = cuentaT.getTransacciones().get(j);
                     if (transaccionDep.getMontoAcreditado()== 0) {

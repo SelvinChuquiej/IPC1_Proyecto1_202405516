@@ -13,7 +13,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat; 
 import java.util.Date;
 import java.util.List;
 import org.selvinchuquiej.model.Transaccion;

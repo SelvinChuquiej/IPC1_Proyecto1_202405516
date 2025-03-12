@@ -33,7 +33,7 @@ public class RegistroClienteController {
         System.out.println(clientes);
     }
     
-    public boolean cuiDuplicados(int cui) {
+    public boolean cuiDuplicados(String cui) {
         for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getCUI() == cui) {
                 return true;

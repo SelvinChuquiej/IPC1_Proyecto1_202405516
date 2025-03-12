@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Cliente {
 
-    private int CUI;
+    private String CUI;
     private String nombreUsuario;
     private String apellidoUsuario;
     private List<Cuenta> cuentasAsociadas;
@@ -21,7 +21,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int CUI, String nombreUsuario, String apellidoUsuario) {
+    public Cliente(String CUI, String nombreUsuario, String apellidoUsuario) {
         this.CUI = CUI;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -34,11 +34,11 @@ public class Cliente {
         }
     }
 
-    public int getCUI() {
+    public String getCUI() {
         return CUI;
     }
 
-    public void setCUI(int CUI) {
+    public void setCUI(String CUI) {
         this.CUI = CUI;
     }
 
