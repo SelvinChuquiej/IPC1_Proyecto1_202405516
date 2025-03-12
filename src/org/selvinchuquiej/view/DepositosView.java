@@ -55,9 +55,10 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
         cmbCuentas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnAceptar = new javax.swing.JButton();
+        btnAceptarDeposito = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
-        txtMonto = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtMontoDeposito = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,10 +66,10 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
 
         jLabel2.setText("Monto");
 
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptarDeposito.setText("Aceptar");
+        btnAceptarDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
+                btnAceptarDepositoActionPerformed(evt);
             }
         });
 
@@ -79,15 +80,14 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             }
         });
 
-        txtMonto.setText("0");
-        txtMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMontoActionPerformed(evt);
-            }
-        });
-        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Depositos");
+
+        txtMontoDeposito.setText("0");
+        txtMontoDeposito.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtMontoKeyTyped(evt);
+                txtMontoDepositoKeyTyped(evt);
             }
         });
 
@@ -98,34 +98,37 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addContainerGap()
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
-                            .addComponent(btnAceptar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAceptarDeposito, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmbCuentas, 0, 275, Short.MAX_VALUE)
                             .addComponent(jLabel2)
-                            .addComponent(txtMonto)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegresar)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                            .addComponent(txtMontoDeposito))))
+                .addContainerGap(56, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(19, 19, 19)
                 .addComponent(btnRegresar)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMontoDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(btnAceptar)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(btnAceptarDeposito)
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -137,12 +140,12 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
         this.ocultar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+    private void btnAceptarDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarDepositoActionPerformed
         // TODO add your handling code here:
 
         try {
             String detalle = "Deposito";
-            double montoAcreditado = Double.parseDouble(txtMonto.getText());
+            double montoAcreditado = Double.parseDouble(txtMontoDeposito.getText());
 
             Cuenta cuenta = depositosController.cuentaAcutal(cmbCuentas);
             if (cuenta != null && montoAcreditado > 0) {
@@ -150,28 +153,24 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
                 depositosController.crearDeposito(depositoNew);
                 JOptionPane.showMessageDialog(null, "Deposito realizado correctamente");
                 depositosController.cargarCuenta(cmbCuentas);
-                txtMonto.setText("");
+                txtMontoDeposito.setText("");
             } else {
-                JOptionPane.showMessageDialog(null, "El monto no puede ser menor o igual a 0");
-                txtMonto.setText("");
+                JOptionPane.showMessageDialog(null, "El monto a depositar debe ser mayor a 0");
+                txtMontoDeposito.setText("");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Porfavor ingresa un monto valido para depositar");
-            txtMonto.setText("");
+            txtMontoDeposito.setText("");
         }
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    }//GEN-LAST:event_btnAceptarDepositoActionPerformed
 
-    private void txtMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoKeyTyped
+    private void txtMontoDepositoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoDepositoKeyTyped
         // TODO add your handling code here:
         char caracter = evt.getKeyChar();
         if ((caracter < '0' || caracter > '9') && caracter != '.' && (caracter != KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
         }
-    }//GEN-LAST:event_txtMontoKeyTyped
-
-    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMontoActionPerformed
+    }//GEN-LAST:event_txtMontoDepositoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -209,12 +208,13 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnAceptarDeposito;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<Cuenta> cmbCuentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtMonto;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtMontoDeposito;
     // End of variables declaration//GEN-END:variables
 
     @Override

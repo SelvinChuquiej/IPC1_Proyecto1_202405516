@@ -4,6 +4,8 @@
  */
 package org.selvinchuquiej.view;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RetirosController;
 import org.selvinchuquiej.model.Cuenta;
@@ -52,8 +54,9 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cmbCuentas = new javax.swing.JComboBox<>();
-        txtMonto = new javax.swing.JTextField();
-        btnAceptar = new javax.swing.JButton();
+        btnAceptarRetiro = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtMontoRetiro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,10 +71,21 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
 
         jLabel3.setText("Monto");
 
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptarRetiro.setText("Aceptar");
+        btnAceptarRetiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
+                btnAceptarRetiroActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Retiros");
+
+        txtMontoRetiro.setText("0");
+        txtMontoRetiro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoRetiroKeyTyped(evt);
             }
         });
 
@@ -80,37 +94,38 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegresar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAceptar)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addComponent(cmbCuentas, 0, 300, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addComponent(txtMonto)))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnRegresar)
+                .addContainerGap(319, Short.MAX_VALUE))
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnAceptarRetiro)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbCuentas, 0, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMontoRetiro))
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMontoRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnAceptar)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addComponent(btnAceptarRetiro)
+                .addGap(49, 49, 49))
         );
 
         pack();
@@ -122,27 +137,43 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
         this.ocultar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+    private void btnAceptarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarRetiroActionPerformed
         // TODO add your handling code here:
-        String detalle = "Retiro";
-        Integer montoDebitado = Integer.parseInt(txtMonto.getText());
 
-        Cuenta cuenta = retirosController.cuentaActual(cmbCuentas);
-        if (cuenta != null) {
-            double saldoActual = cuenta.getSaldo();
-            if (montoDebitado <= 0) {
-                System.out.println("El monto no puede ser 0 o negativo");
-            } else if (montoDebitado > saldoActual) {
-                System.out.println("Saldo Insuficiente");
+        try {
+            String detalle = "Retiro";
+            double montoDebitado = Double.parseDouble(txtMontoRetiro.getText());
+
+            Cuenta cuenta = retirosController.cuentaActual(cmbCuentas);
+            if (cuenta != null) {
+                double saldoActual = cuenta.getSaldo();
+                if (montoDebitado <= 0) {
+                    JOptionPane.showMessageDialog(null, "El monto a retirar debe ser mayor a 0");
+                } else if (montoDebitado > saldoActual) {
+                    JOptionPane.showMessageDialog(null, "Saldo Insuficiente");
+                } else {
+                    Transaccion depositoNew = new Transaccion(cuenta, detalle, montoDebitado, 0, cuenta.getSaldo());
+                    retirosController.crearRetiro(depositoNew);
+                    System.out.println(retirosController.retiros);
+                    JOptionPane.showMessageDialog(null, "Retiro realizado correctamente");
+                    retirosController.cargarCuenta(cmbCuentas);
+                }
             } else {
-                Transaccion depositoNew = new Transaccion(cuenta, detalle, montoDebitado, 0, cuenta.getSaldo());
-                retirosController.crearRetiro(depositoNew);
-                System.out.println(retirosController.retiros);
+                System.out.println("El monto no puede ser 0");
             }
-        } else {
-            System.out.println("El monto no puede ser 0");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Porfavor ingresa un monto valido para retirar");
+            txtMontoRetiro.setText("");
         }
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    }//GEN-LAST:event_btnAceptarRetiroActionPerformed
+
+    private void txtMontoRetiroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoRetiroKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if ((caracter < '0' || caracter > '9') && caracter != '.' && (caracter != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMontoRetiroKeyTyped
 
     /**
      * @param args the command line arguments
@@ -180,12 +211,13 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnAceptarRetiro;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<Cuenta> cmbCuentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtMonto;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtMontoRetiro;
     // End of variables declaration//GEN-END:variables
 
     @Override
