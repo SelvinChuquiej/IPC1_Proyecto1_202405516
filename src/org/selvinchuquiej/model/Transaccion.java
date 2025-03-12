@@ -4,7 +4,9 @@
  */
 package org.selvinchuquiej.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import static org.selvinchuquiej.model.Cuenta.contadorId;
 
 /**
@@ -15,12 +17,16 @@ public class Transaccion {
 
     private String idTransaccion;
     private Cuenta idCuenta;
-    private LocalDateTime fechaHora;
+    private String fechaHora;
     private String detalle;
     private double montoDebitado;
     private double montoAcreditado;
     private double saldoDisponible;
     public static int contadorId = 0;
+
+    LocalDateTime fechaHoras = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    String fechaFormateada = fechaHoras.format(formatter);
 
     public Transaccion() {
     }
@@ -28,7 +34,7 @@ public class Transaccion {
     public Transaccion(Cuenta idCuenta, String detalle, double montoDebitado, double montoAcreditado, double saldoDisponible) {
         this.idTransaccion = "1" + String.format("%03d", contadorId++);
         this.idCuenta = idCuenta;
-        this.fechaHora = LocalDateTime.now();
+        this.fechaHora = fechaFormateada;
         this.detalle = detalle;
         this.montoDebitado = montoDebitado;
         this.montoAcreditado = montoAcreditado;
@@ -51,11 +57,11 @@ public class Transaccion {
         this.idCuenta = idCuenta;
     }
 
-    public LocalDateTime getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -90,6 +96,7 @@ public class Transaccion {
     public void setSaldoDisponible(double saldoDisponible) {
         this.saldoDisponible = saldoDisponible;
     }
+
 
     @Override
     public String toString() {

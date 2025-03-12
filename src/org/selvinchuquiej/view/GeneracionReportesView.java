@@ -4,6 +4,16 @@
  */
 package org.selvinchuquiej.view;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.GeneracionReporteController;
+import org.selvinchuquiej.model.Transaccion;
+import org.selvinchuquiej.pdf.DepositosPDF;
+import org.selvinchuquiej.pdf.HistorialTransaccionesPDF;
+import org.selvinchuquiej.pdf.RetirosPDF;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -17,18 +27,20 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
      * Creates new form GeneracionReportesView
      */
     private Principal principal;
-    private HistorialTransaccionesPDFView historialTransaccionesPDFView;
-    private DepositosRealizadosPDFView depositosRealizadosPDFView;
-    private RetirosRealizadosPDFView retirosRealizadosPDFView;
+    private GeneracionReporteController generacionReporteController;
+    private HistorialTransaccionesPDF historialTransaccionesPDF;
+    private DepositosPDF depositosPDF;
+    private RetirosPDF retirosPDF; 
 
     public GeneracionReportesView() {
     }
 
-    public GeneracionReportesView(Principal principal) {
+    public GeneracionReportesView(Principal principal, GeneracionReporteController generacionReporteController) {
         this.principal = principal;
-        this.historialTransaccionesPDFView = new HistorialTransaccionesPDFView(this, principal);
-        this.depositosRealizadosPDFView = new DepositosRealizadosPDFView(this, principal);
-        this.retirosRealizadosPDFView = new RetirosRealizadosPDFView(this, principal);
+        this.generacionReporteController = generacionReporteController;
+        this.historialTransaccionesPDF = new HistorialTransaccionesPDF();
+        this.depositosPDF = new DepositosPDF();
+        this.retirosPDF = new RetirosPDF();
         initComponents();
     }
 
@@ -41,39 +53,33 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnRegresar2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnTransacciones = new javax.swing.JButton();
+        btnDepositos = new javax.swing.JButton();
+        btnRetiros = new javax.swing.JButton();
         btnRegresar3 = new javax.swing.JButton();
-
-        btnRegresar2.setText("Regresar");
-        btnRegresar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresar2ActionPerformed(evt);
-            }
-        });
+        txtCUI = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Historial Transacciones");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTransacciones.setText("Historial Transacciones");
+        btnTransacciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTransaccionesActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Depositos Realizados");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDepositos.setText("Depositos Realizados");
+        btnDepositos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDepositosActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Retiros Realizados");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnRetiros.setText("Retiros Realizados");
+        btnRetiros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnRetirosActionPerformed(evt);
             }
         });
 
@@ -84,45 +90,51 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
             }
         });
 
+        jLabel1.setText("CUI:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(103, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTransacciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDepositos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRetiros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(99, 99, 99))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnRegresar3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(106, Short.MAX_VALUE))
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCUI, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(btnRegresar3)
-                .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(txtCUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addComponent(btnTransacciones)
+                .addGap(18, 18, 18)
+                .addComponent(btnDepositos)
+                .addGap(18, 18, 18)
+                .addComponent(btnRetiros)
+                .addGap(54, 54, 54))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar2ActionPerformed
-        // TODO add your handling code here:
-        principal.mostrarPrincipalView();
-        this.ocultar();
-    }//GEN-LAST:event_btnRegresar2ActionPerformed
 
     private void btnRegresar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar3ActionPerformed
         // TODO add your handling code here:
@@ -130,26 +142,39 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
         this.ocultar();
     }//GEN-LAST:event_btnRegresar3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaccionesActionPerformed
         // TODO add your handling code here:
-        historialTransaccionesPDFView.mostrar();
-        historialTransaccionesPDFView.setLocationRelativeTo(null);
-        this.ocultar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String idC = txtCUI.getText();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        depositosRealizadosPDFView.mostrar();
-        depositosRealizadosPDFView.setLocationRelativeTo(null);
-        this.ocultar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        List<Transaccion> transacciones = generacionReporteController.obtenerTransacciones(idC);
+        try {
+            historialTransaccionesPDF.generarPDF(idC, transacciones);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GeneracionReportesView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnTransaccionesActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositosActionPerformed
         // TODO add your handling code here:
-        retirosRealizadosPDFView.mostrar();
-        retirosRealizadosPDFView.setLocationRelativeTo(null);
-        this.ocultar();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        String idC = txtCUI.getText();
+        List<Transaccion> depositos = generacionReporteController.obtenerDepositos(idC);
+        try {
+            depositosPDF.generarPDF(idC, depositos);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GeneracionReportesView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDepositosActionPerformed
+
+    private void btnRetirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirosActionPerformed
+        // TODO add your handling code here:
+        String idC = txtCUI.getText();
+        List<Transaccion> retiros = generacionReporteController.obtenerRetiros(idC);
+        try {
+            retirosPDF.generarPDF(idC, retiros);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GeneracionReportesView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRetirosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,13 +212,12 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnRegresar1;
-    private javax.swing.JButton btnRegresar2;
+    private javax.swing.JButton btnDepositos;
     private javax.swing.JButton btnRegresar3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnRetiros;
+    private javax.swing.JButton btnTransacciones;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtCUI;
     // End of variables declaration//GEN-END:variables
 
     @Override

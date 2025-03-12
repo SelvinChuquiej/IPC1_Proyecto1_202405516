@@ -4,19 +4,13 @@
  */
 package org.selvinchuquiej.controller;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Transaccion;
 import org.selvinchuquiej.pdf.HistorialTransaccionesPDF;
-import org.selvinchuquiej.system.Principal;
 
 /**
  *
@@ -40,7 +34,7 @@ public class HistorialTransaccionesController {
         for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
             Cuenta cuentaT = crearCuentaController.cuentas.get(i);
             if (cuentaT.getIdCuenta().equals(idCuenta)) {
-                for (int j = 0; j < cuentaT.getTransacciones().size(); j++) {
+                for (int j = cuentaT.getTransacciones().size() - 1; j >= 0; j--) {
                     Transaccion transaccion = cuentaT.getTransacciones().get(j);
                     Object[] datos = {
                         transaccion.getIdTransaccion(),
@@ -55,7 +49,6 @@ public class HistorialTransaccionesController {
                 return;
             }
         }
-
     }
 
     public Cuenta obtenerCuenta(String id) {
@@ -66,11 +59,6 @@ public class HistorialTransaccionesController {
             }
         }
         return null;
-    }
-
-    public void crearPDFHistoraial(String cui, List<Transaccion> transacciones) throws FileNotFoundException {
-        HistorialTransaccionesPDF pdfGenerator = new HistorialTransaccionesPDF();
-        pdfGenerator.generarPDF(cui, transacciones);
     }
 
 }

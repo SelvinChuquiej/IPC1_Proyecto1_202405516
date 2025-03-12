@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/view/RetirosView.java</file>
-            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/controller/RegistroClienteController.java</file>
-            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/controller/RetirosController.java</file>
-            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/view/BuscarCuentasView.java</file>
-            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/view/HistorialTransaccionesView.java</file>
-            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/controller/BuscarCuentasController.java</file>
+            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/pdf/RetirosPDF.java</file>
+            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/pdf/HistorialTransaccionesPDF.java</file>
+            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/view/GeneracionReportesView.java</file>
+            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/pdf/DepositosPDF.java</file>
+            <file>file:/C:/Users/Selvi/Desktop/Selvin/USAC/SEMESTRE%20III/LAB%20IPC/proyecto1/src/org/selvinchuquiej/controller/GeneracionReporteController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -56,7 +56,6 @@ public class CrearCuentaController {
         }
     }
 
-
     public void cargarCuenta(JComboBox<Cuenta> cmbCuentas) {
         cmbCuentas.removeAllItems();
         for (int i = 0; i < cuentas.size(); i++) {
