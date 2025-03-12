@@ -6,6 +6,7 @@ package org.selvinchuquiej.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
@@ -27,17 +28,16 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     private CrearCuentaController cuentaController;
     private CrearCuentaController crearCuentaController;
     
-
     public CrearCuentaView() {
     }
-
+    
     public CrearCuentaView(Principal principal, CrearCuentaController crearCuentaController, CrearCuentaController cuentaController) {
         this.principal = principal;
         this.crearCuentaController = crearCuentaController;
         this.cuentaController = cuentaController;
         initComponents();
     }
-
+    
     public void cargarUsuarios() {
         crearCuentaController.cargarClientes(cmbUsuarios);
     }
@@ -51,29 +51,18 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        loginView1 = new org.selvinchuquiej.view.LoginView();
-        btnCrear = new javax.swing.JButton();
+        btnCrearCuenta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbUsuarios = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
-
-        javax.swing.GroupLayout loginView1Layout = new javax.swing.GroupLayout(loginView1.getContentPane());
-        loginView1.getContentPane().setLayout(loginView1Layout);
-        loginView1Layout.setHorizontalGroup(
-            loginView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        loginView1Layout.setVerticalGroup(
-            loginView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCrear.setText("Crear");
-        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+        btnCrearCuenta.setText("Crear Cuenta");
+        btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearActionPerformed(evt);
+                btnCrearCuentaActionPerformed(evt);
             }
         });
 
@@ -92,36 +81,46 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel4.setText("Crear Cuenta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(232, 232, 232)
-                            .addComponent(btnCrear)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRegresar)
-                        .addGap(261, 261, 261)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(232, 232, 232)
+                                .addComponent(btnCrearCuenta)))))
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(btnRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
-                .addComponent(btnCrear)
-                .addGap(56, 56, 56))
+                .addGap(44, 44, 44)
+                .addComponent(btnCrearCuenta)
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -133,15 +132,17 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
         this.ocultar();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+    private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
         String idCuenta = "D2D025-";
         int saldo = 0;
         Cliente usuarioSelec = (Cliente) cmbUsuarios.getSelectedItem();
         
         Cuenta nuevaCuenta = new Cuenta(idCuenta, usuarioSelec, saldo);
-        cuentaController.agregarCuenta(nuevaCuenta); 
-    }//GEN-LAST:event_btnCrearActionPerformed
+        cuentaController.agregarCuenta(nuevaCuenta);        
+        
+        JOptionPane.showMessageDialog(null, "Cuenta creada correctamente para: " + usuarioSelec.getNombreUsuario());
+    }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void cmbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuariosActionPerformed
         // TODO add your handling code here:
@@ -183,18 +184,18 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnCrearCuenta;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<org.selvinchuquiej.model.Cliente> cmbUsuarios;
     private javax.swing.JLabel jLabel1;
-    private org.selvinchuquiej.view.LoginView loginView1;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void mostrar() {
         setVisible(true);
     }
-
+    
     @Override
     public void ocultar() {
         setVisible(false);
