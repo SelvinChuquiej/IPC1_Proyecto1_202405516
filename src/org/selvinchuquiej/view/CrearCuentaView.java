@@ -27,17 +27,17 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     private Principal principal;
     private CrearCuentaController cuentaController;
     private CrearCuentaController crearCuentaController;
-    
+
     public CrearCuentaView() {
     }
-    
+
     public CrearCuentaView(Principal principal, CrearCuentaController crearCuentaController, CrearCuentaController cuentaController) {
         this.principal = principal;
         this.crearCuentaController = crearCuentaController;
         this.cuentaController = cuentaController;
         initComponents();
     }
-    
+
     public void cargarUsuarios() {
         crearCuentaController.cargarClientes(cmbUsuarios);
     }
@@ -137,11 +137,10 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
         String idCuenta = "D2D025-";
         int saldo = 0;
         Cliente usuarioSelec = (Cliente) cmbUsuarios.getSelectedItem();
-        
+
         Cuenta nuevaCuenta = new Cuenta(idCuenta, usuarioSelec, saldo);
-        cuentaController.agregarCuenta(nuevaCuenta);        
-        
-        JOptionPane.showMessageDialog(null, "Cuenta creada correctamente para: " + usuarioSelec.getNombreUsuario());
+        cuentaController.agregarCuenta(nuevaCuenta);
+
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void cmbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuariosActionPerformed
@@ -195,7 +194,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
     public void mostrar() {
         setVisible(true);
     }
-    
+
     @Override
     public void ocultar() {
         setVisible(false);

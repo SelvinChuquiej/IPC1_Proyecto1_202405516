@@ -45,7 +45,8 @@ public class CrearCuentaController {
 
         cuentas.add(cuenta);
         usuario.agregarCuenta(cuenta);
-        System.out.println(cuentas);
+        
+        JOptionPane.showMessageDialog(null, "Cuenta creada correctamente para: " + usuario.getNombreUsuario());
     }
 
     public void cargarClientes(JComboBox<Cliente> cmbUsuarios) {

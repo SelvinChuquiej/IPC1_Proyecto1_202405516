@@ -4,6 +4,7 @@
  */
 package org.selvinchuquiej.controller;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.model.Cliente;
@@ -36,12 +37,12 @@ public class BuscarCuentasController {
         }
     }
 
-    public void buscarCuentas(JTable tblCuentasAsociadas, int CUI) {
+    public void buscarCuentas(JTable tblCuentasAsociadas, String CUI) {
         dtm = (DefaultTableModel) tblCuentasAsociadas.getModel();
         dtm.setRowCount(0);
         for (int i = 0; i < registroClienteController.clientes.size(); i++) {
             Cliente usuario = registroClienteController.clientes.get(i);
-            if (usuario.getCUI() == CUI) {
+            if (usuario.getCUI().equals(CUI)) {
                 for (int j = 0; j < usuario.getCuentasAsociadas().size(); j++) {
                     Cuenta cuenta = usuario.getCuentasAsociadas().get(j);
                     Object[] datos = {
@@ -50,6 +51,8 @@ public class BuscarCuentasController {
                     dtm.addRow(datos);
                 }
                 return;
+            } else {
+                JOptionPane.showMessageDialog(null, "CUI no existe en el sistema");
             }
         }
     }

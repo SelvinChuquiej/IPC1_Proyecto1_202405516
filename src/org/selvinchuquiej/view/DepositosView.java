@@ -4,7 +4,9 @@
  */
 package org.selvinchuquiej.view;
 
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.controller.RegistroClienteController;
@@ -77,6 +79,18 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             }
         });
 
+        txtMonto.setText("0");
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoActionPerformed(evt);
+            }
+        });
+        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,18 +139,39 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
-        String detalle = "Deposito";
-        Integer montoAcreditado = Integer.parseInt(txtMonto.getText());
 
-        Cuenta cuenta = depositosController.cuentaAcutal(cmbCuentas);
-        if (cuenta != null && montoAcreditado > 0) {
-            Transaccion depositoNew = new Transaccion(cuenta, detalle, 0, montoAcreditado, cuenta.getSaldo());
-            depositosController.crearDeposito(depositoNew);
-            System.out.println(depositosController.depositos);
-        } else {
-            System.out.println("El monto no puede ser 0");
+        try {
+            String detalle = "Deposito";
+            double montoAcreditado = Double.parseDouble(txtMonto.getText());
+
+            Cuenta cuenta = depositosController.cuentaAcutal(cmbCuentas);
+            if (cuenta != null && montoAcreditado > 0) {
+                Transaccion depositoNew = new Transaccion(cuenta, detalle, 0, montoAcreditado, cuenta.getSaldo());
+                depositosController.crearDeposito(depositoNew);
+                JOptionPane.showMessageDialog(null, "Deposito realizado correctamente");
+                depositosController.cargarCuenta(cmbCuentas);
+                txtMonto.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "El monto no puede ser menor o igual a 0");
+                txtMonto.setText("");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Porfavor ingresa un monto valido para depositar");
+            txtMonto.setText("");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoKeyTyped
+        // TODO add your handling code here:
+        char caracter = evt.getKeyChar();
+        if ((caracter < '0' || caracter > '9') && caracter != '.' && (caracter != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMontoKeyTyped
+
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoActionPerformed
 
     /**
      * @param args the command line arguments
