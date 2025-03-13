@@ -4,6 +4,7 @@
  */
 package org.selvinchuquiej.view;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.controller.HistorialTransaccionesController;
 import org.selvinchuquiej.model.Cuenta;
@@ -159,7 +160,7 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
         // TODO add your handling code here:
         String idCuentaBuscar = txtIdCuenta.getText();
         if (idCuentaBuscar.isEmpty()) {
-            System.out.println("Ingresa un id a buscar");
+            JOptionPane.showMessageDialog(null, "Ingresa un id a buscar");
         } else {
             Cuenta cuentaEncontrar = historialTransaccionesController.obtenerCuenta(idCuentaBuscar);
             historialTransaccionesController.cargarTransacciones(tblTransacciones, idCuentaBuscar);
@@ -174,6 +175,13 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
+
+        txtIdCuenta.setText("");
+        txtCUI.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        DefaultTableModel modelTransacciones = (DefaultTableModel) tblTransacciones.getModel();
+        modelTransacciones.setRowCount(0);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

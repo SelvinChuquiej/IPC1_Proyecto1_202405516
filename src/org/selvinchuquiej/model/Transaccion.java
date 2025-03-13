@@ -97,7 +97,6 @@ public class Transaccion {
         this.saldoDisponible = saldoDisponible;
     }
 
-
     @Override
     public String toString() {
         return idTransaccion + " | " + detalle + " | " + montoDebitado + " | " + montoAcreditado + " | " + saldoDisponible;

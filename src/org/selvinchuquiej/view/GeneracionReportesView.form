@@ -26,9 +26,9 @@
           <Group type="102" attributes="0">
               <EmptySpace pref="103" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnTransacciones" max="32767" attributes="0"/>
-                  <Component id="btnDepositos" max="32767" attributes="0"/>
-                  <Component id="btnRetiros" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnGenTransacciones" max="32767" attributes="0"/>
+                  <Component id="btnGenDepositos" max="32767" attributes="0"/>
+                  <Component id="btnGenRetiros" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
           </Group>
@@ -60,39 +60,39 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="txtCUI" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnTransacciones" min="-2" max="-2" attributes="0"/>
+              <Component id="btnGenTransacciones" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnDepositos" min="-2" max="-2" attributes="0"/>
+              <Component id="btnGenDepositos" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnRetiros" min="-2" max="-2" attributes="0"/>
+              <Component id="btnGenRetiros" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnTransacciones">
+    <Component class="javax.swing.JButton" name="btnGenTransacciones">
       <Properties>
         <Property name="text" type="java.lang.String" value="Historial Transacciones"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTransaccionesActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenTransaccionesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDepositos">
+    <Component class="javax.swing.JButton" name="btnGenDepositos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Depositos Realizados"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDepositosActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenDepositosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnRetiros">
+    <Component class="javax.swing.JButton" name="btnGenRetiros">
       <Properties>
         <Property name="text" type="java.lang.String" value="Retiros Realizados"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRetirosActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenRetirosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRegresar3">

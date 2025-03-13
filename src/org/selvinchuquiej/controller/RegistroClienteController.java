@@ -30,7 +30,6 @@ public class RegistroClienteController {
         }
         clientes.add(cliente);
         JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
-        System.out.println(clientes);
     }
     
     public boolean cuiDuplicados(String cui) {
