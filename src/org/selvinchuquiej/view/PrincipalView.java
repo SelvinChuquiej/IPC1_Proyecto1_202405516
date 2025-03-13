@@ -4,7 +4,9 @@
  */
 package org.selvinchuquiej.view;
 
+import javax.swing.JOptionPane;
 import org.selvinchuquiej.controller.CrearCuentaController;
+import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -18,14 +20,25 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
      * Creates new form PrincipalView
      */
     private Principal principal;
-    private CrearCuentaController cuentaController;
+    private RegistroClienteController registroClienteController;
+    private CrearCuentaController crearCuentaController;
 
     public PrincipalView() {
     }
 
-    public PrincipalView(Principal principal) {
+    public PrincipalView(Principal principal, RegistroClienteController registroClienteController, CrearCuentaController crearCuentaController) {
         this.principal = principal;
+        this.registroClienteController = registroClienteController;
+        this.crearCuentaController = crearCuentaController;
         initComponents();
+    }
+
+    public boolean existeCuentaUsuario() {
+        return !crearCuentaController.cuentas.isEmpty();
+    }
+
+    public boolean existeUsuario() {
+        return !registroClienteController.clientes.isEmpty();
     }
 
     /**
@@ -46,11 +59,14 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         btnDepositos = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnRetiros = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
+        btnHistorial = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,10 +138,10 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
             }
         });
 
-        jButton6.setText("Retiros");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnRetiros.setText("Retiros");
+        btnRetiros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnRetirosActionPerformed(evt);
             }
         });
 
@@ -140,7 +156,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRetiros, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDepositos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -152,21 +168,21 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                 .addGap(18, 18, 18)
                 .addComponent(btnDepositos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
+                .addComponent(btnRetiros)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton3.setText("Generacion de Reportes");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setText("Generacion de Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Historial Transacciones");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorial.setText("Historial Transacciones");
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnHistorialActionPerformed(evt);
             }
         });
 
@@ -184,8 +200,8 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                    .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                 .addGap(67, 67, 67))
         );
         jPanel3Layout.setVerticalGroup(
@@ -194,11 +210,24 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnHistorial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(btnReportes)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("Datos del estudiante");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Bitacora");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,7 +260,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,36 +268,61 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
 
     private void btnDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositosActionPerformed
         // TODO add your handling code here:
+
+        if (!existeCuentaUsuario()) {
+            JOptionPane.showMessageDialog(null, "Aun no hay cuentas existentes");
+            return;
+        }
         principal.mostrarDepositosView();
         this.ocultar();
     }//GEN-LAST:event_btnDepositosActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnRetirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirosActionPerformed
         // TODO add your handling code here:
+        if (!existeCuentaUsuario()) {
+            JOptionPane.showMessageDialog(null, "Aun no hay cuentas existentes");
+            return;
+        }
         principal.mostrarRetiros();
         this.ocultar();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnRetirosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         // TODO add your handling code here:
+        if (!existeCuentaUsuario()) {
+            JOptionPane.showMessageDialog(null, "Aun no hay cuentas existentes");
+            return;
+        }
         principal.mostrarHistorialView();
         this.ocultar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnHistorialActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
+        if (!existeCuentaUsuario()) {
+            JOptionPane.showMessageDialog(null, "Aun no hay cuentas existentes");
+            return;
+        }
         principal.mostrarGeneracionReportesView();
         this.ocultar();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnBuscarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCuentasActionPerformed
         // TODO add your handling code here:
+        if (!existeCuentaUsuario()) {
+            JOptionPane.showMessageDialog(null, "Aun no hay cuentas existentes");
+            return;
+        }
         principal.mostrarBuscarCuentasClientesView();
         this.ocultar();
     }//GEN-LAST:event_btnBuscarCuentasActionPerformed
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
+        if (!existeUsuario()) {
+            JOptionPane.showMessageDialog(null, "Aun no se han creado usuarios");
+            return;
+        }
         principal.mostrarCrearCuentaView();
         this.ocultar();
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
@@ -278,6 +332,11 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         principal.mostrarRegistroUsuarioView();
         this.ocultar();
     }//GEN-LAST:event_btnRegistroUsuarioActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Selvin Raúl Chuquiej Andrade - 202405516 - IPC1D");
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -318,14 +377,17 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
     private javax.swing.JButton btnBuscarCuentas;
     private javax.swing.JButton btnCrearCuenta;
     private javax.swing.JButton btnDepositos;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnRegistroUsuario;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnRetiros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

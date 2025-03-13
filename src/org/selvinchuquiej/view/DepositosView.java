@@ -151,7 +151,6 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             if (cuenta != null && montoAcreditado > 0) {
                 Transaccion depositoNew = new Transaccion(cuenta, detalle, 0, montoAcreditado, cuenta.getSaldo());
                 depositosController.crearDeposito(depositoNew);
-                JOptionPane.showMessageDialog(null, "Deposito realizado correctamente");
                 depositosController.cargarCuenta(cmbCuentas);
                 txtMontoDeposito.setText("");
             } else {

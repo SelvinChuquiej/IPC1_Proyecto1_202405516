@@ -154,8 +154,6 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
                 } else {
                     Transaccion depositoNew = new Transaccion(cuenta, detalle, montoDebitado, 0, cuenta.getSaldo());
                     retirosController.crearRetiro(depositoNew);
-                    System.out.println(retirosController.retiros);
-                    JOptionPane.showMessageDialog(null, "Retiro realizado correctamente");
                     retirosController.cargarCuenta(cmbCuentas);
                 }
             } else {

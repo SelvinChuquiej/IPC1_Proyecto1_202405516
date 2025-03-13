@@ -44,8 +44,8 @@ public class Principal {
     private RetirosView retirosView;
     private HistorialTransaccionesView historialTransaccionesView;
     private GeneracionReportesView generacionReportesView;
-    
-    private RegistroClienteController clienteController;
+
+    private RegistroClienteController registroClienteController;
     private CrearCuentaController crearCuentaController;
     private BuscarCuentasController buscarCuentasController;
     private DepositosController depositosController;
@@ -55,18 +55,17 @@ public class Principal {
 
     public Principal() {
 
-        clienteController = new RegistroClienteController();
-        crearCuentaController = new CrearCuentaController(clienteController);
-        buscarCuentasController = new BuscarCuentasController(clienteController);
+        registroClienteController = new RegistroClienteController();
+        crearCuentaController = new CrearCuentaController(registroClienteController);
+        buscarCuentasController = new BuscarCuentasController(registroClienteController);
         depositosController = new DepositosController(crearCuentaController);
         retirosController = new RetirosController(crearCuentaController);
         historialTransaccionesController = new HistorialTransaccionesController(crearCuentaController);
         generacionReporteController = new GeneracionReporteController(crearCuentaController);
-        
 
         loginView = new LoginView(this);
-        principalView = new PrincipalView(this);
-        registroUsuarioView = new RegistroClienteView(this, clienteController);
+        principalView = new PrincipalView(this, registroClienteController, crearCuentaController);
+        registroUsuarioView = new RegistroClienteView(this, registroClienteController);
         crearCuentaView = new CrearCuentaView(this, crearCuentaController, crearCuentaController);
         buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController);
         depositosView = new DepositosView(this, crearCuentaController, depositosController);

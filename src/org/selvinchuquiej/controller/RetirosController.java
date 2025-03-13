@@ -6,6 +6,7 @@ package org.selvinchuquiej.controller;
 
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Transaccion;
 
@@ -37,12 +38,19 @@ public class RetirosController {
 
     public void crearRetiro(Transaccion transaccion) {
         Cuenta cuenta = transaccion.getIdCuenta();
+        if (cuenta.getTransacciones().size() > 25) {
+            JOptionPane.showMessageDialog(null, "No se pueden hacer mas de 25 Transacciones");
+            return;
+        }
+
         double nuevoSaldo = cuenta.getSaldo() - transaccion.getMontoDebitado();
         cuenta.setSaldo(nuevoSaldo);
         transaccion.setSaldoDisponible(nuevoSaldo);
         cuenta.getTransacciones().add(transaccion);
-
         retiros.add(transaccion);
+
+        JOptionPane.showMessageDialog(null, "Retiro realizado correctamente");
+
     }
 
 }
