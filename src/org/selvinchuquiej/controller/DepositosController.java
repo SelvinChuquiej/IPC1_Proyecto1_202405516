@@ -17,37 +17,44 @@ import org.selvinchuquiej.model.Transaccion;
 public class DepositosController {
 
     private CrearCuentaController crearCuentaController;
+    private BitacoraController bitacoraController;
 
     public ArrayList<Transaccion> depositos = new ArrayList<>();
 
-    public DepositosController(CrearCuentaController crearCuentaController) {
+    public DepositosController(CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
         this.crearCuentaController = crearCuentaController;
-    }
-
-    public void cargarCuenta(JComboBox<Cuenta> cmbCuentas) {
-        cmbCuentas.removeAllItems();
-        for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
-            Cuenta cuenta = crearCuentaController.cuentas.get(i);
-            cmbCuentas.addItem(cuenta);
-        }
+        this.bitacoraController = bitacoraController;
     }
 
     public Cuenta cuentaAcutal(JComboBox<Cuenta> cmbCuentas) {
         return (Cuenta) cmbCuentas.getSelectedItem();
     }
 
-    public void crearDeposito(Transaccion transaccion) {
-        Cuenta cuenta = transaccion.getIdCuenta();
-        if (cuenta.getTransacciones().size() > 25) {
-            JOptionPane.showMessageDialog(null, "No se pueden hacer mas de 25 Transacciones");
+    public void crearDeposito(Transaccion transaccionDe) {
+        Cuenta cuenta = transaccionDe.getIdCuenta();
+
+        String accionDe = "Deposito";
+        String detalleFallidoCantidad = "No se puede hacer mas de 25 Transacciones para '" + cuenta.getIdCuenta() + "'";
+        String detalleExito = "Se deposito Q." + transaccionDe.getMontoAcreditado() + " a la cuenta '" + cuenta.getIdCuenta() + "'";
+
+        if (cuenta == null) {
+            JOptionPane.showMessageDialog(null, "No se encontro ninguna cuenta");
             return;
         }
-        double nuevoSaldo = cuenta.getSaldo() + transaccion.getMontoAcreditado();
-        cuenta.setSaldo(nuevoSaldo);
-        transaccion.setSaldoDisponible(nuevoSaldo);
-        cuenta.getTransacciones().add(transaccion);
 
-        depositos.add(transaccion);
+        if (cuenta.getTransacciones().size() > 25) {
+            JOptionPane.showMessageDialog(null, "No se pueden hacer mas de 25 Transacciones");
+            bitacoraController.registrarEvento(accionDe, bitacoraController.error, detalleFallidoCantidad);
+            return;
+        }
+
+        double nuevoSaldo = cuenta.getSaldo() + transaccionDe.getMontoAcreditado();
+        cuenta.setSaldo(nuevoSaldo);
+        transaccionDe.setSaldoDisponible(nuevoSaldo);
+        cuenta.getTransacciones().add(transaccionDe);
+        depositos.add(transaccionDe);
+
         JOptionPane.showMessageDialog(null, "Deposito realizado correctamente");
+        bitacoraController.registrarEvento(accionDe, bitacoraController.exito, detalleExito);
     }
 }

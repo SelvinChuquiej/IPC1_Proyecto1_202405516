@@ -25,16 +25,14 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
      * Creates new form CrearCuentaView
      */
     private Principal principal;
-    private CrearCuentaController cuentaController;
     private CrearCuentaController crearCuentaController;
 
     public CrearCuentaView() {
     }
 
-    public CrearCuentaView(Principal principal, CrearCuentaController crearCuentaController, CrearCuentaController cuentaController) {
+    public CrearCuentaView(Principal principal, CrearCuentaController crearCuentaController) {
         this.principal = principal;
         this.crearCuentaController = crearCuentaController;
-        this.cuentaController = cuentaController;
         initComponents();
     }
 
@@ -54,7 +52,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
         btnCrearCuenta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbUsuarios = new javax.swing.JComboBox<>();
-        btnRegresar = new javax.swing.JButton();
+        btnRegresarCC = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,10 +72,10 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
             }
         });
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarCC.setText("Regresar");
+        btnRegresarCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnRegresarCCActionPerformed(evt);
             }
         });
 
@@ -92,7 +90,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnRegresar))
+                        .addComponent(btnRegresarCC))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +109,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarCC)
                 .addGap(22, 22, 22)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
@@ -126,11 +124,11 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarCCActionPerformed
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarCCActionPerformed
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
@@ -139,7 +137,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
         Cliente usuarioSelec = (Cliente) cmbUsuarios.getSelectedItem();
 
         Cuenta nuevaCuenta = new Cuenta(idCuenta, usuarioSelec, saldo);
-        cuentaController.agregarCuenta(nuevaCuenta);
+        crearCuentaController.agregarCuenta(nuevaCuenta);
 
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
@@ -184,7 +182,7 @@ public class CrearCuentaView extends javax.swing.JFrame implements Ventana {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearCuenta;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresarCC;
     private javax.swing.JComboBox<org.selvinchuquiej.model.Cliente> cmbUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;

@@ -5,7 +5,9 @@
 package org.selvinchuquiej.controller;
 
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.model.Cuenta;
@@ -21,20 +23,28 @@ public class HistorialTransaccionesController {
     private RegistroClienteController registroClienteController;
     private CrearCuentaController crearCuentaController;
     private DepositosController depositosController;
+    private BitacoraController bitacoraController;
     private Cuenta cuenta;
     private DefaultTableModel dtm;
 
-    public HistorialTransaccionesController(CrearCuentaController crearCuentaController) {
+    public HistorialTransaccionesController(CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
         this.crearCuentaController = crearCuentaController;
+        this.bitacoraController = bitacoraController;
     }
 
     public void cargarTransacciones(JTable tblTransacciones, String idCuenta) {
+
+        String accion = "Historial Transacciones";
+        String detalleExito = "Transacciones cargadas correctamente para la cuenta '" + idCuenta + "'";
+        String detalleError = "No se encontro la cuenta '" + idCuenta + "' dentro del sistema";
+
         dtm = (DefaultTableModel) tblTransacciones.getModel();
         dtm.setRowCount(0);
         for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
             Cuenta cuentaT = crearCuentaController.cuentas.get(i);
             if (cuentaT.getIdCuenta().equals(idCuenta)) {
-                for (int j = cuentaT.getTransacciones().size() - 1; j >= 0; j--) {
+                Collections.reverse(cuentaT.getTransacciones());
+                for (int j = 1; j < cuentaT.getTransacciones().size(); j++) {
                     Transaccion transaccion = cuentaT.getTransacciones().get(j);
                     Object[] datos = {
                         transaccion.getIdTransaccion(),
@@ -46,6 +56,8 @@ public class HistorialTransaccionesController {
                     };
                     dtm.addRow(datos);
                 }
+                JOptionPane.showMessageDialog(null, "Transacciones cargadas correctamente");
+                bitacoraController.registrarEvento(accion, bitacoraController.exito, detalleExito);
                 return;
             }
         }

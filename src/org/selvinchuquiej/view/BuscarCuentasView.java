@@ -7,6 +7,7 @@ package org.selvinchuquiej.view;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.BuscarCuentasController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RegistroClienteController;
@@ -25,14 +26,16 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
      */
     private Principal principal;
     private BuscarCuentasController buscarCuentasController;
+    private BitacoraController bitacoraController;
     private DefaultTableModel dtm;
 
     public BuscarCuentasView() {
     }
 
-    public BuscarCuentasView(Principal principal, BuscarCuentasController buscarCuentasController) {
+    public BuscarCuentasView(Principal principal, BuscarCuentasController buscarCuentasController, BitacoraController bitacoraController) {
         this.principal = principal;
         this.buscarCuentasController = buscarCuentasController;
+        this.bitacoraController = bitacoraController;
         initComponents();
     }
 
@@ -56,7 +59,7 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblCuentasAsociadas = new javax.swing.JTable();
         txtCUI = new javax.swing.JTextField();
-        btnRegresar = new javax.swing.JButton();
+        btnRegresarBC = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -97,10 +100,10 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
             }
         });
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarBC.setText("Regresar");
+        btnRegresarBC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnRegresarBCActionPerformed(evt);
             }
         });
 
@@ -118,7 +121,7 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarBC)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(29, 29, 29)
@@ -149,7 +152,7 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarBC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -174,24 +177,27 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
 
     private void btnBuscarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCuentasActionPerformed
         // TODO add your handling code here:
-        String usuarioCUI = txtCUI.getText();
+        String accion = "Buscar Cuentas";
+        String detallesFallidoCUI = "CUI Invalido";
+
+        String usuarioCUI = txtCUI.getText().trim();
         if (usuarioCUI.length() == 5) {
             buscarCuentasController.buscarCuentas(tblCuentasAsociadas, usuarioCUI);
         } else {
             JOptionPane.showMessageDialog(null, "Porfavor ingresa un CUI valido");
+            bitacoraController.registrarEvento(accion, bitacoraController.error, detallesFallidoCUI);
         }
-
     }//GEN-LAST:event_btnBuscarCuentasActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarBCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarBCActionPerformed
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
-        
+
         txtCUI.setText("");
         DefaultTableModel modelCuentasAsoc = (DefaultTableModel) tblCuentasAsociadas.getModel();
         modelCuentasAsoc.setRowCount(0);
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarBCActionPerformed
 
     private void txtCUIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCUIKeyTyped
         // TODO add your handling code here:
@@ -241,7 +247,7 @@ public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCuentas;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresarBC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

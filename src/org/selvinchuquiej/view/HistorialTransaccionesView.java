@@ -6,6 +6,7 @@ package org.selvinchuquiej.view;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.HistorialTransaccionesController;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.system.Principal;
@@ -22,15 +23,25 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
      */
     private Principal principal;
     private HistorialTransaccionesController historialTransaccionesController;
+    private BitacoraController bitacoraController;
     private DefaultTableModel dtm;
 
     public HistorialTransaccionesView() {
     }
 
-    public HistorialTransaccionesView(Principal principal, HistorialTransaccionesController historialTransaccionesController) {
+    public HistorialTransaccionesView(Principal principal, HistorialTransaccionesController historialTransaccionesController, BitacoraController bitacoraController) {
         this.principal = principal;
         this.historialTransaccionesController = historialTransaccionesController;
+        this.bitacoraController = bitacoraController;
         initComponents();
+    }
+
+    public void vaciarDatos() {
+        dtm = (DefaultTableModel) tblTransacciones.getModel();
+        dtm.setRowCount(0);
+        txtCUI.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
     }
 
     /**
@@ -53,7 +64,7 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
         jLabel3 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        btnRegresar = new javax.swing.JButton();
+        btnRegresarHT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,10 +99,10 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
 
         jLabel4.setText("Apellido");
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarHT.setText("Regresar");
+        btnRegresarHT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnRegresarHTActionPerformed(evt);
             }
         });
 
@@ -122,7 +133,7 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
                             .addGap(18, 18, 18)
                             .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegresar))
+                            .addComponent(btnRegresarHT))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1011, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -137,7 +148,7 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                             .addComponent(txtIdCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnRegresar))
+                    .addComponent(btnRegresarHT))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -158,20 +169,31 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         // TODO add your handling code here:
+
         String idCuentaBuscar = txtIdCuenta.getText();
+        String accion = "Historial Transacciones";
+        String detalleError = "No se ingreso un ID para buscar en el sistema";
         if (idCuentaBuscar.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingresa un id a buscar");
+            JOptionPane.showMessageDialog(null, detalleError);
+            bitacoraController.registrarEvento(accion, bitacoraController.error, detalleError);
+            vaciarDatos();
         } else {
             Cuenta cuentaEncontrar = historialTransaccionesController.obtenerCuenta(idCuentaBuscar);
-            historialTransaccionesController.cargarTransacciones(tblTransacciones, idCuentaBuscar);
+            vaciarDatos();
+            if (cuentaEncontrar == null) {
+                JOptionPane.showMessageDialog(null, "No se encontro la cuenta dentro del sistema");
+                bitacoraController.registrarEvento(accion, bitacoraController.exito, detalleError);
+            } else {
+                historialTransaccionesController.cargarTransacciones(tblTransacciones, idCuentaBuscar);
 
-            txtCUI.setText(String.valueOf(cuentaEncontrar.getUsuario().getCUI()));
-            txtNombre.setText(String.valueOf(cuentaEncontrar.getUsuario().getNombreUsuario()));
-            txtApellido.setText(String.valueOf(cuentaEncontrar.getUsuario().getApellidoUsuario()));
+                txtCUI.setText(String.valueOf(cuentaEncontrar.getUsuario().getCUI()));
+                txtNombre.setText(String.valueOf(cuentaEncontrar.getUsuario().getNombreUsuario()));
+                txtApellido.setText(String.valueOf(cuentaEncontrar.getUsuario().getApellidoUsuario()));
+            }
         }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarHTActionPerformed
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
@@ -182,7 +204,7 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
         txtApellido.setText("");
         DefaultTableModel modelTransacciones = (DefaultTableModel) tblTransacciones.getModel();
         modelTransacciones.setRowCount(0);
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarHTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,7 +244,7 @@ public class HistorialTransaccionesView extends javax.swing.JFrame implements Ve
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMostrar;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresarHT;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

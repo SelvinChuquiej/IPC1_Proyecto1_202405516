@@ -7,6 +7,7 @@ package org.selvinchuquiej.view;
 import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.controller.RegistroClienteController;
@@ -28,19 +29,21 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
     private Transaccion transaccion;
     private CrearCuentaController crearCuentaController;
     private DepositosController depositosController;
+    private BitacoraController bitacoraController;
 
     public DepositosView() {
     }
 
-    public DepositosView(Principal principal, CrearCuentaController crearCuentaController, DepositosController depositosController) {
+    public DepositosView(Principal principal, CrearCuentaController crearCuentaController, DepositosController depositosController, BitacoraController bitacoraController) {
         this.principal = principal;
         this.crearCuentaController = crearCuentaController;
         this.depositosController = depositosController;
+        this.bitacoraController = bitacoraController;
         initComponents();
     }
 
     public void cargarCuentas() {
-        depositosController.cargarCuenta(cmbCuentas);
+        crearCuentaController.cargarCuenta(cmbCuentasDe);
     }
 
     /**
@@ -52,11 +55,11 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbCuentas = new javax.swing.JComboBox<>();
+        cmbCuentasDe = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAceptarDeposito = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
+        btnRegresarDe = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtMontoDeposito = new javax.swing.JTextField();
 
@@ -73,10 +76,10 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             }
         });
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarDe.setText("Regresar");
+        btnRegresarDe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnRegresarDeActionPerformed(evt);
             }
         });
 
@@ -99,13 +102,13 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnRegresar))
+                        .addComponent(btnRegresarDe))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
                             .addComponent(btnAceptarDeposito, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbCuentas, 0, 275, Short.MAX_VALUE)
+                            .addComponent(cmbCuentasDe, 0, 275, Short.MAX_VALUE)
                             .addComponent(jLabel2)
                             .addComponent(txtMontoDeposito))))
                 .addContainerGap(56, Short.MAX_VALUE))
@@ -115,13 +118,13 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarDe)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbCuentasDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -134,32 +137,39 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarDeActionPerformed
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarDeActionPerformed
 
     private void btnAceptarDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarDepositoActionPerformed
         // TODO add your handling code here:
 
-        try {
-            String detalle = "Deposito";
-            double montoAcreditado = Double.parseDouble(txtMontoDeposito.getText());
+        String detalleDe = "Deposito";
+        Cuenta cuenta = depositosController.cuentaAcutal(cmbCuentasDe);
 
-            Cuenta cuenta = depositosController.cuentaAcutal(cmbCuentas);
-            if (cuenta != null && montoAcreditado > 0) {
-                Transaccion depositoNew = new Transaccion(cuenta, detalle, 0, montoAcreditado, cuenta.getSaldo());
-                depositosController.crearDeposito(depositoNew);
-                depositosController.cargarCuenta(cmbCuentas);
-                txtMontoDeposito.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "El monto a depositar debe ser mayor a 0");
-                txtMontoDeposito.setText("");
+        try {
+            double montoAcreditado = Double.parseDouble(txtMontoDeposito.getText().trim());
+
+            if (montoAcreditado <= 0) {
+                String detalleErrorMonto = "No se pudo relizar el deposito a la cuenta '" + cuenta.getIdCuenta() + "' el monto tiene que ser mayor a 0 ";;
+                JOptionPane.showMessageDialog(null, detalleErrorMonto);
+                txtMontoDeposito.setText("0");
+                bitacoraController.registrarEvento(detalleDe, bitacoraController.error, detalleErrorMonto);
+                return;
             }
+            Transaccion depositoNew = new Transaccion(cuenta, detalleDe, 0, montoAcreditado, cuenta.getSaldo());
+            depositosController.crearDeposito(depositoNew);
+            cargarCuentas();
+            txtMontoDeposito.setText("0");
+
         } catch (Exception e) {
+            String detalleVacio = "No se pudo relizar el deposito a la cuenta '" + cuenta.getIdCuenta() + "' ingrese un monto valido";
+
             JOptionPane.showMessageDialog(null, "Porfavor ingresa un monto valido para depositar");
             txtMontoDeposito.setText("");
+            bitacoraController.registrarEvento(detalleDe, bitacoraController.error, detalleVacio);
         }
     }//GEN-LAST:event_btnAceptarDepositoActionPerformed
 
@@ -203,13 +213,13 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             public void run() {
                 new DepositosView().setVisible(true);
             }
-        });
+        }); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptarDeposito;
-    private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<Cuenta> cmbCuentas;
+    private javax.swing.JButton btnRegresarDe;
+    private javax.swing.JComboBox<Cuenta> cmbCuentasDe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

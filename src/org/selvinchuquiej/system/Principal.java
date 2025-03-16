@@ -7,14 +7,16 @@ package org.selvinchuquiej.system;
 import com.itextpdf.text.DocumentException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.BuscarCuentasController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
 import org.selvinchuquiej.controller.GeneracionReporteController;
 import org.selvinchuquiej.controller.HistorialTransaccionesController;
+import org.selvinchuquiej.controller.LoginController;
 import org.selvinchuquiej.controller.RetirosController;
-import org.selvinchuquiej.model.Cuenta;
+import org.selvinchuquiej.model.Login;
 import org.selvinchuquiej.view.BuscarCuentasView;
 import org.selvinchuquiej.view.CrearCuentaView;
 import org.selvinchuquiej.view.DepositosView;
@@ -34,6 +36,7 @@ public class Principal {
     /**
      * @param args the command line arguments
      */
+    private Login login;
     private JFrame ventanaActual;
     private PrincipalView principalView;
     private LoginView loginView;
@@ -45,6 +48,8 @@ public class Principal {
     private HistorialTransaccionesView historialTransaccionesView;
     private GeneracionReportesView generacionReportesView;
 
+    private BitacoraController bitacoraController;
+    private LoginController loginController;
     private RegistroClienteController registroClienteController;
     private CrearCuentaController crearCuentaController;
     private BuscarCuentasController buscarCuentasController;
@@ -55,26 +60,30 @@ public class Principal {
 
     public Principal() {
 
-        registroClienteController = new RegistroClienteController();
-        crearCuentaController = new CrearCuentaController(registroClienteController);
-        buscarCuentasController = new BuscarCuentasController(registroClienteController);
-        depositosController = new DepositosController(crearCuentaController);
-        retirosController = new RetirosController(crearCuentaController);
-        historialTransaccionesController = new HistorialTransaccionesController(crearCuentaController);
-        generacionReporteController = new GeneracionReporteController(crearCuentaController);
+        login = new Login();
 
-        loginView = new LoginView(this);
-        principalView = new PrincipalView(this, registroClienteController, crearCuentaController);
-        registroUsuarioView = new RegistroClienteView(this, registroClienteController);
-        crearCuentaView = new CrearCuentaView(this, crearCuentaController, crearCuentaController);
-        buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController);
-        depositosView = new DepositosView(this, crearCuentaController, depositosController);
-        retirosView = new RetirosView(this, crearCuentaController, retirosController);
-        historialTransaccionesView = new HistorialTransaccionesView(this, historialTransaccionesController);
-        generacionReportesView = new GeneracionReportesView(this, generacionReporteController);
+        bitacoraController = new BitacoraController(login);
+        loginController = new LoginController(bitacoraController, login);
+        registroClienteController = new RegistroClienteController(bitacoraController);
+        crearCuentaController = new CrearCuentaController(registroClienteController, bitacoraController);
+        buscarCuentasController = new BuscarCuentasController(registroClienteController, bitacoraController);
+        depositosController = new DepositosController(crearCuentaController, bitacoraController);
+        retirosController = new RetirosController(crearCuentaController, bitacoraController);
+        historialTransaccionesController = new HistorialTransaccionesController(crearCuentaController, bitacoraController);
+        generacionReporteController = new GeneracionReporteController(crearCuentaController, bitacoraController);
 
-        //mostrarLoginView();
-        mostrarPrincipalView();
+        loginView = new LoginView(this, loginController);
+        principalView = new PrincipalView(this, registroClienteController, crearCuentaController, bitacoraController);
+        registroUsuarioView = new RegistroClienteView(this, registroClienteController, bitacoraController);
+        crearCuentaView = new CrearCuentaView(this, crearCuentaController);
+        buscarCuentasView = new BuscarCuentasView(this, buscarCuentasController, bitacoraController);
+        depositosView = new DepositosView(this, crearCuentaController, depositosController, bitacoraController);
+        retirosView = new RetirosView(this, crearCuentaController, retirosController, bitacoraController);
+        historialTransaccionesView = new HistorialTransaccionesView(this, historialTransaccionesController, bitacoraController);
+        generacionReportesView = new GeneracionReportesView(this, generacionReporteController, bitacoraController);
+
+        mostrarLoginView();
+        //mostrarPrincipalView(); 
 
     }
 
@@ -111,7 +120,7 @@ public class Principal {
         depositosView.cargarCuentas();
     }
 
-    public void mostrarRetiros() {
+    public void mostrarRetirosView() {
         cambiarVentana(retirosView);
         retirosView.setLocationRelativeTo(null);
         retirosView.cargarCuentas();

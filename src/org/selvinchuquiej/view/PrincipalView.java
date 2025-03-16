@@ -4,7 +4,9 @@
  */
 package org.selvinchuquiej.view;
 
+import org.selvinchuquiej.model.Login;
 import javax.swing.JOptionPane;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.system.Principal;
@@ -20,16 +22,19 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
      * Creates new form PrincipalView
      */
     private Principal principal;
+    private Login login;
     private RegistroClienteController registroClienteController;
     private CrearCuentaController crearCuentaController;
+    private BitacoraController bitacoraController;
 
     public PrincipalView() {
     }
 
-    public PrincipalView(Principal principal, RegistroClienteController registroClienteController, CrearCuentaController crearCuentaController) {
+    public PrincipalView(Principal principal, RegistroClienteController registroClienteController, CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
         this.principal = principal;
         this.registroClienteController = registroClienteController;
         this.crearCuentaController = crearCuentaController;
+        this.bitacoraController = bitacoraController;
         initComponents();
     }
 
@@ -225,6 +230,11 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Bitacora");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -283,7 +293,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
             JOptionPane.showMessageDialog(null, "Aun no hay cuentas existentes");
             return;
         }
-        principal.mostrarRetiros();
+        principal.mostrarRetirosView();
         this.ocultar();
     }//GEN-LAST:event_btnRetirosActionPerformed
 
@@ -335,8 +345,19 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Selvin Raúl Chuquiej Andrade - 202405516 - IPC1D");
+        String accion = "Consulta de datos";
+        String mensaje = "Selvin Raúl Chuquiej Andrade - 202405516 - IPC1D";
+        JOptionPane.showMessageDialog(null, mensaje);
+        bitacoraController.registrarEvento(accion, bitacoraController.exito, mensaje);
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        String accion = "Generar bitacora";
+        String detalles = "Bitacora generada correctamente";
+        bitacoraController.registrarEvento(accion, bitacoraController.exito, detalles);
+        bitacoraController.mostrarRegistro();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments

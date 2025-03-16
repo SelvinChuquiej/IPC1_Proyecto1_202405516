@@ -17,40 +17,51 @@ import org.selvinchuquiej.model.Transaccion;
 public class RetirosController {
 
     private CrearCuentaController crearCuentaController;
+    private BitacoraController bitacoraController;
 
     public ArrayList<Transaccion> retiros = new ArrayList<>();
 
-    public RetirosController(CrearCuentaController crearCuentaController) {
+    public RetirosController(CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
         this.crearCuentaController = crearCuentaController;
+        this.bitacoraController = bitacoraController;
     }
 
-    public void cargarCuenta(JComboBox<Cuenta> cmbCuentas) {
-        cmbCuentas.removeAllItems();
-        for (int i = 0; i < crearCuentaController.cuentas.size(); i++) {
-            Cuenta cuenta = crearCuentaController.cuentas.get(i);
-            cmbCuentas.addItem(cuenta);
-        }
+
+    public Cuenta cuentaActual(JComboBox<Cuenta> cmbCuentasRe) {
+        return (Cuenta) cmbCuentasRe.getSelectedItem();
     }
 
-    public Cuenta cuentaActual(JComboBox<Cuenta> cmbCuentas) {
-        return (Cuenta) cmbCuentas.getSelectedItem();
-    }
+    public void crearRetiro(Transaccion transaccionRe) {
+        Cuenta cuenta = transaccionRe.getIdCuenta();
 
-    public void crearRetiro(Transaccion transaccion) {
-        Cuenta cuenta = transaccion.getIdCuenta();
-        if (cuenta.getTransacciones().size() > 25) {
-            JOptionPane.showMessageDialog(null, "No se pueden hacer mas de 25 Transacciones");
+        String accionRe = "Retiro";
+        String detalleFallidoCantidad = "No se puede hacer mas de 25 Transacciones para '" + cuenta.getIdCuenta() + "'";
+        String detalleExito = "Se retiro Q." + transaccionRe.getMontoDebitado() + " a la cuenta '" + cuenta.getIdCuenta() + "'";
+
+        if (cuenta == null) {
+            JOptionPane.showMessageDialog(null, "No se encontro ninguna cuenta");
             return;
         }
 
-        double nuevoSaldo = cuenta.getSaldo() - transaccion.getMontoDebitado();
+        if (cuenta.getTransacciones().size() > 25) {
+            JOptionPane.showMessageDialog(null, detalleFallidoCantidad);
+            bitacoraController.registrarEvento(accionRe, bitacoraController.error, detalleFallidoCantidad);
+            return;
+        }
+
+        double nuevoSaldo = cuenta.getSaldo() - transaccionRe.getMontoDebitado();
+        if (nuevoSaldo < 0) {
+            String mensajeError = "Saldo insuficiente en la cuenta '" + cuenta.getIdCuenta() + "'";
+            JOptionPane.showMessageDialog(null, "Saldo insuficiente para realizar el retiro.");
+            bitacoraController.registrarEvento(accionRe, bitacoraController.error, mensajeError);
+            return;
+        }
         cuenta.setSaldo(nuevoSaldo);
-        transaccion.setSaldoDisponible(nuevoSaldo);
-        cuenta.getTransacciones().add(transaccion);
-        retiros.add(transaccion);
+        transaccionRe.setSaldoDisponible(nuevoSaldo);
+        cuenta.getTransacciones().add(transaccionRe);
+        retiros.add(transaccionRe);
 
-        JOptionPane.showMessageDialog(null, "Retiro realizado correctamente");
-
+        bitacoraController.registrarEvento(accionRe, bitacoraController.exito, detalleExito);
     }
 
 }

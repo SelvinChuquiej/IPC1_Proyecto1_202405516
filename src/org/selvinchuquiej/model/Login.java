@@ -10,8 +10,8 @@ package org.selvinchuquiej.model;
  */
 
 public class Login {
-    private String usuario;
-    private String password;
+    private String usuario = "AdministradoIPC1D";
+    private String password = "ipc1D1s2025";
 
     public Login() {
     }

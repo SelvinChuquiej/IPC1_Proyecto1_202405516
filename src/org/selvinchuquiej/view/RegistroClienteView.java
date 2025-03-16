@@ -6,6 +6,7 @@ package org.selvinchuquiej.view;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.system.Principal;
@@ -22,15 +23,24 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
      */
     private Principal principal;
     private RegistroClienteController usuarioController;
-    private CrearCuentaView crearCuentaView;
+    private BitacoraController bitacoraController;
 
     public RegistroClienteView() {
     }
 
-    public RegistroClienteView(Principal principal, RegistroClienteController usuarioController) {
+    public RegistroClienteView(Principal principal, RegistroClienteController usuarioController, BitacoraController bitacoraController) {
         this.principal = principal;
         this.usuarioController = usuarioController;
+        this.bitacoraController = bitacoraController;
         initComponents();
+    }
+
+    private boolean validarCamposVacios(String cui, String nombre, String apellido) {
+        return !cui.trim().isEmpty() && !nombre.trim().isEmpty() && !apellido.trim().isEmpty();
+    }
+
+    private boolean validarCUI(String cui) {
+        return cui.length() == 5;
     }
 
     /**
@@ -43,7 +53,7 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
     private void initComponents() {
 
         txtApellido = new javax.swing.JTextField();
-        btnRegresar = new javax.swing.JButton();
+        btnRegresarRC = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -60,10 +70,10 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
             }
         });
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarRC.setText("Regresar");
+        btnRegresarRC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnRegresarRCActionPerformed(evt);
             }
         });
 
@@ -115,7 +125,7 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
                                     .addComponent(btnCrear, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(btnRegresar))))
+                                .addComponent(btnRegresarRC))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(jLabel4)))
@@ -125,7 +135,7 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnRegresar)
+                .addComponent(btnRegresarRC)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
@@ -148,7 +158,7 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnRegresarRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarRCActionPerformed
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
@@ -156,18 +166,22 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
         txtCUI.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarRCActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
 
-        if (!txtCUI.getText().trim().isEmpty() && !txtNombre.getText().trim().isEmpty() && !txtApellido.getText().trim().isEmpty()) {
+        String accion = "Registro Usuario";
+        String detallesExito = "Usuario registrado";
+        String detalleLongCUI = "El CUI debe contener de 5 digitos";
+        String detalleDatos = "Porfavor ingresa todos los datos correctamente";
 
-            String cuiUsuario = txtCUI.getText();
-            String nombreUsuario = txtNombre.getText();
-            String apellidoUsuario = txtApellido.getText();
+        String cuiUsuario = txtCUI.getText().trim();
+        String nombreUsuario = txtNombre.getText().trim();
+        String apellidoUsuario = txtApellido.getText().trim();
 
-            if (cuiUsuario.length() == 5) {
+        if (validarCamposVacios(cuiUsuario, nombreUsuario, apellidoUsuario)) {
+            if (validarCUI(cuiUsuario)) {
                 Cliente nuevoUsuario = new Cliente(cuiUsuario, nombreUsuario, apellidoUsuario);
                 usuarioController.agregarUsuario(nuevoUsuario);
 
@@ -175,12 +189,13 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
                 txtNombre.setText("");
                 txtApellido.setText("");
             } else {
-                JOptionPane.showMessageDialog(null, "El CUI debe contenee de 5 digitos");
+                JOptionPane.showMessageDialog(null, detalleLongCUI);
+                bitacoraController.registrarEvento(accion, bitacoraController.error, detalleLongCUI);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Porfavor ingresa todos los datos correctamente");
+            JOptionPane.showMessageDialog(null, detalleDatos);
+            bitacoraController.registrarEvento(accion, bitacoraController.error, detalleDatos);
         }
-
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtCUIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCUIKeyTyped
@@ -245,7 +260,7 @@ public class RegistroClienteView extends javax.swing.JFrame implements Ventana {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresarRC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

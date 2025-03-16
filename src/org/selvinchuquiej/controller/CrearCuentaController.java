@@ -19,16 +19,24 @@ import org.selvinchuquiej.model.Cliente;
 public class CrearCuentaController {
 
     private RegistroClienteController registroClienteController;
+    private BitacoraController bitacoraController;
     private DefaultTableModel dtm;
 
     public ArrayList<Cuenta> cuentas = new ArrayList<>();
 
-    public CrearCuentaController(RegistroClienteController registroClienteController) {
+    public CrearCuentaController(RegistroClienteController registroClienteController, BitacoraController bitacoraController) {
         this.registroClienteController = registroClienteController;
+        this.bitacoraController = bitacoraController;
     }
 
     public void agregarCuenta(Cuenta cuenta) {
+
         Cliente usuario = cuenta.getUsuario();
+
+        String accion = "Crear Cuenta";
+        String detallesExito = "Cuenta creada correctamente para (" + usuario.getNombreUsuario() + ") No. cuenta (" + cuenta.getIdCuenta() + ")";
+        String detallesFallidoLimite = "No se puede tener mas de 3 cuentas para (" + usuario.getNombreUsuario() + ")";
+
         int cont = 0;
 
         for (int i = 0; i < cuentas.size(); i++) {
@@ -37,7 +45,8 @@ public class CrearCuentaController {
             }
         }
         if (cont >= 3) {
-            JOptionPane.showMessageDialog(null, "No se puede tener mas de 3 cuentas");
+            JOptionPane.showMessageDialog(null, detallesFallidoLimite);
+            bitacoraController.registrarEvento(accion, bitacoraController.error, detallesFallidoLimite);
             return;
         }
 
@@ -45,8 +54,8 @@ public class CrearCuentaController {
 
         cuentas.add(cuenta);
         usuario.agregarCuenta(cuenta);
-        
         JOptionPane.showMessageDialog(null, "Cuenta creada correctamente para: " + usuario.getNombreUsuario());
+        bitacoraController.registrarEvento(accion, bitacoraController.exito, detallesExito);
     }
 
     public void cargarClientes(JComboBox<Cliente> cmbUsuarios) {

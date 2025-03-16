@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.GeneracionReporteController;
 import org.selvinchuquiej.model.Transaccion;
@@ -29,6 +30,7 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
      */
     private Principal principal;
     private GeneracionReporteController generacionReporteController;
+    private BitacoraController bitacoraController;
     private HistorialTransaccionesPDF historialTransaccionesPDF;
     private DepositosPDF depositosPDF;
     private RetirosPDF retirosPDF;
@@ -36,9 +38,10 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
     public GeneracionReportesView() {
     }
 
-    public GeneracionReportesView(Principal principal, GeneracionReporteController generacionReporteController) {
+    public GeneracionReportesView(Principal principal, GeneracionReporteController generacionReporteController, BitacoraController bitacoraController) {
         this.principal = principal;
         this.generacionReporteController = generacionReporteController;
+        this.bitacoraController = bitacoraController;
         this.historialTransaccionesPDF = new HistorialTransaccionesPDF();
         this.depositosPDF = new DepositosPDF();
         this.retirosPDF = new RetirosPDF();
@@ -57,7 +60,7 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
         btnGenTransacciones = new javax.swing.JButton();
         btnGenDepositos = new javax.swing.JButton();
         btnGenRetiros = new javax.swing.JButton();
-        btnRegresar3 = new javax.swing.JButton();
+        btnRegresarGR = new javax.swing.JButton();
         txtCUI = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -84,10 +87,10 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
             }
         });
 
-        btnRegresar3.setText("Regresar");
-        btnRegresar3.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresarGR.setText("Regresar");
+        btnRegresarGR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresar3ActionPerformed(evt);
+                btnRegresarGRActionPerformed(evt);
             }
         });
 
@@ -108,7 +111,7 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnRegresar3))
+                        .addComponent(btnRegresarGR))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +123,7 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(btnRegresar3)
+                .addComponent(btnRegresarGR)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -137,18 +140,19 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar3ActionPerformed
+    private void btnRegresarGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarGRActionPerformed
         // TODO add your handling code here:
         principal.mostrarPrincipalView();
         this.ocultar();
-
         txtCUI.setText("");
-    }//GEN-LAST:event_btnRegresar3ActionPerformed
+    }//GEN-LAST:event_btnRegresarGRActionPerformed
 
     private void btnGenTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenTransaccionesActionPerformed
         // TODO add your handling code here:
+        String accion = "Generar Reporte";
+
         if (!txtCUI.getText().isEmpty()) {
-            String idC = txtCUI.getText();
+            String idC = txtCUI.getText().trim();
             List<Transaccion> transacciones = generacionReporteController.obtenerTransacciones(idC);
 
             if (transacciones.isEmpty()) {
@@ -163,10 +167,12 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
             }
         } else {
             JOptionPane.showMessageDialog(null, "Porfavor ingresa un CUI valido");
+            bitacoraController.registrarEvento(accion, bitacoraController.error, "No se ingreso ningun CUI para generar reporte");
         }
     }//GEN-LAST:event_btnGenTransaccionesActionPerformed
 
     private void btnGenDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenDepositosActionPerformed
+        String accion = "Generar Reporte";
         // TODO add your handling code here:
         if (!txtCUI.getText().isEmpty()) {
             String idC = txtCUI.getText();
@@ -179,10 +185,12 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
             }
         } else {
             JOptionPane.showMessageDialog(null, "Porfavor ingresa un CUI valido");
+            bitacoraController.registrarEvento(accion, bitacoraController.error, "No se ingreso ningun CUI para generar reporte");
         }
     }//GEN-LAST:event_btnGenDepositosActionPerformed
 
     private void btnGenRetirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenRetirosActionPerformed
+        String accion = "Generar Reporte";
         // TODO add your handling code here:
         if (!txtCUI.getText().isEmpty()) {
             String idC = txtCUI.getText();
@@ -195,6 +203,7 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
             }
         } else {
             JOptionPane.showMessageDialog(null, "Porfavor ingresa un CUI valido");
+            bitacoraController.registrarEvento(accion, bitacoraController.error, "No se ingreso ningun CUI para generar reporte");
         }
     }//GEN-LAST:event_btnGenRetirosActionPerformed
 
@@ -237,7 +246,7 @@ public class GeneracionReportesView extends javax.swing.JFrame implements Ventan
     private javax.swing.JButton btnGenDepositos;
     private javax.swing.JButton btnGenRetiros;
     private javax.swing.JButton btnGenTransacciones;
-    private javax.swing.JButton btnRegresar3;
+    private javax.swing.JButton btnRegresarGR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtCUI;
     // End of variables declaration//GEN-END:variables

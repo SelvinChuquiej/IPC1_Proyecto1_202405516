@@ -24,8 +24,8 @@ public class LoginView extends javax.swing.JFrame implements Ventana {
     public LoginView() {
     }
 
-    public LoginView(Principal principal) {
-        this.loginController = new LoginController();
+    public LoginView(Principal principal, LoginController loginController) {
+        this.loginController = loginController;
         this.principal = principal;
         initComponents();
     }
@@ -103,8 +103,8 @@ public class LoginView extends javax.swing.JFrame implements Ventana {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        String usuario = txtUsuario.getText();
-        String contrasena = new String(txtContrasena.getPassword());
+        String usuario = txtUsuario.getText().trim();
+        String contrasena = new String(txtContrasena.getPassword()).trim();
 
         if (loginController.auntenticar(usuario, contrasena)) {
             JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso");
