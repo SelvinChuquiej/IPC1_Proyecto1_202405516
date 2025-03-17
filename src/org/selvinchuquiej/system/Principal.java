@@ -63,8 +63,8 @@ public class Principal {
         login = new Login();
 
         bitacoraController = new BitacoraController(login);
-        loginController = new LoginController(bitacoraController, login);
         registroClienteController = new RegistroClienteController(bitacoraController);
+        loginController = new LoginController(bitacoraController, login);
         crearCuentaController = new CrearCuentaController(registroClienteController, bitacoraController);
         buscarCuentasController = new BuscarCuentasController(registroClienteController, bitacoraController);
         depositosController = new DepositosController(crearCuentaController, bitacoraController);

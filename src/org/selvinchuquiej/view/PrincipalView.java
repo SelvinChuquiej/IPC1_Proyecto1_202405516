@@ -22,7 +22,6 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
      * Creates new form PrincipalView
      */
     private Principal principal;
-    private Login login;
     private RegistroClienteController registroClienteController;
     private CrearCuentaController crearCuentaController;
     private BitacoraController bitacoraController;
@@ -353,6 +352,7 @@ public class PrincipalView extends javax.swing.JFrame implements Ventana {
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Bitacora generada correctamente");
         String accion = "Generar bitacora";
         String detalles = "Bitacora generada correctamente";
         bitacoraController.registrarEvento(accion, bitacoraController.exito, detalles);

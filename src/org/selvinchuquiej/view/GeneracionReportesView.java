@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.selvinchuquiej.controller.BitacoraController;
-import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.GeneracionReporteController;
 import org.selvinchuquiej.model.Transaccion;
 import org.selvinchuquiej.pdf.DepositosPDF;

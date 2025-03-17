@@ -46,9 +46,13 @@ public class BuscarCuentasController {
 
         dtm = (DefaultTableModel) tblCuentasAsociadas.getModel();
         dtm.setRowCount(0);
+
+        boolean encontrado = false;
+
         for (int i = 0; i < registroClienteController.clientes.size(); i++) {
             Cliente usuario = registroClienteController.clientes.get(i);
-            if (usuario.getCUI().equals(CUI.trim())) {
+            if (usuario.getCUI().equals(CUI)) {
+                encontrado = true;
                 int numCuentas = usuario.getCuentasAsociadas().size();
 
                 String detallesExito = "Se encontraron (" + numCuentas + ") cuentas asociada a (" + usuario.getNombreUsuario() + ")";
@@ -63,10 +67,12 @@ public class BuscarCuentasController {
                 JOptionPane.showMessageDialog(null, detallesExito);
                 bitacoraController.registrarEvento(accion, bitacoraController.exito, detallesExito);
                 return;
-            } else {
-                JOptionPane.showMessageDialog(null, detallesFallidoCUI);
-                bitacoraController.registrarEvento(accion, bitacoraController.error, detallesFallidoCUI);
             }
+        }
+
+        if (!encontrado) {
+            JOptionPane.showMessageDialog(null, detallesFallidoCUI);
+            bitacoraController.registrarEvento(accion, bitacoraController.error, detallesFallidoCUI);
         }
     }
 }

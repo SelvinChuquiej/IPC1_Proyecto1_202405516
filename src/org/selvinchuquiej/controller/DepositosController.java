@@ -16,13 +16,11 @@ import org.selvinchuquiej.model.Transaccion;
  */
 public class DepositosController {
 
-    private CrearCuentaController crearCuentaController;
     private BitacoraController bitacoraController;
 
     public ArrayList<Transaccion> depositos = new ArrayList<>();
 
     public DepositosController(CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
-        this.crearCuentaController = crearCuentaController;
         this.bitacoraController = bitacoraController;
     }
 
@@ -54,7 +52,7 @@ public class DepositosController {
         cuenta.getTransacciones().add(transaccionDe);
         depositos.add(transaccionDe);
 
-        JOptionPane.showMessageDialog(null, "Deposito realizado correctamente");
+        JOptionPane.showMessageDialog(null, "Deposito realizado correctamente..");
         bitacoraController.registrarEvento(accionDe, bitacoraController.exito, detalleExito);
     }
 }

@@ -4,11 +4,6 @@
  */
 package org.selvinchuquiej.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import org.selvinchuquiej.controller.CrearCuentaController;
-import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Cliente;

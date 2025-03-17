@@ -16,13 +16,11 @@ import org.selvinchuquiej.model.Transaccion;
  */
 public class RetirosController {
 
-    private CrearCuentaController crearCuentaController;
     private BitacoraController bitacoraController;
 
     public ArrayList<Transaccion> retiros = new ArrayList<>();
 
     public RetirosController(CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
-        this.crearCuentaController = crearCuentaController;
         this.bitacoraController = bitacoraController;
     }
 

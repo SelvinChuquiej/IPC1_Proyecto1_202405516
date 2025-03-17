@@ -27,7 +27,6 @@ public class RegistroClienteController {
     }
 
     public void agregarUsuario(Cliente cliente) {
-
         String accion = "Registro Usuario";
         String detallesExito = "Usuario (" + cliente.getNombreUsuario() + ") registrado";
         String detallesFallidoCUI = "CUI duplicado (" + cliente.getCUI() + ")";

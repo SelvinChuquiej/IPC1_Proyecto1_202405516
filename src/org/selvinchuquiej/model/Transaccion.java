@@ -4,10 +4,8 @@
  */
 package org.selvinchuquiej.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import static org.selvinchuquiej.model.Cuenta.contadorId;
 
 /**
  *

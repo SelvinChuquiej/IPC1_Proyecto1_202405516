@@ -7,8 +7,6 @@ package org.selvinchuquiej.controller;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Cliente;
 
@@ -20,7 +18,6 @@ public class CrearCuentaController {
 
     private RegistroClienteController registroClienteController;
     private BitacoraController bitacoraController;
-    private DefaultTableModel dtm;
 
     public ArrayList<Cuenta> cuentas = new ArrayList<>();
 
@@ -30,15 +27,12 @@ public class CrearCuentaController {
     }
 
     public void agregarCuenta(Cuenta cuenta) {
-
         Cliente usuario = cuenta.getUsuario();
-
         String accion = "Crear Cuenta";
         String detallesExito = "Cuenta creada correctamente para (" + usuario.getNombreUsuario() + ") No. cuenta (" + cuenta.getIdCuenta() + ")";
         String detallesFallidoLimite = "No se puede tener mas de 3 cuentas para (" + usuario.getNombreUsuario() + ")";
 
         int cont = 0;
-
         for (int i = 0; i < cuentas.size(); i++) {
             if (cuentas.get(i).getUsuario().equals(usuario)) {
                 cont++;

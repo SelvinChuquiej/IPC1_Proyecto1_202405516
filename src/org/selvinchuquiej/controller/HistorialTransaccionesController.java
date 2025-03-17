@@ -4,15 +4,12 @@
  */
 package org.selvinchuquiej.controller;
 
-import java.io.FileNotFoundException;
 import java.util.Collections;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Transaccion;
-import org.selvinchuquiej.pdf.HistorialTransaccionesPDF;
 
 /**
  *
@@ -20,11 +17,8 @@ import org.selvinchuquiej.pdf.HistorialTransaccionesPDF;
  */
 public class HistorialTransaccionesController {
 
-    private RegistroClienteController registroClienteController;
     private CrearCuentaController crearCuentaController;
-    private DepositosController depositosController;
     private BitacoraController bitacoraController;
-    private Cuenta cuenta;
     private DefaultTableModel dtm;
 
     public HistorialTransaccionesController(CrearCuentaController crearCuentaController, BitacoraController bitacoraController) {
@@ -36,7 +30,6 @@ public class HistorialTransaccionesController {
 
         String accion = "Historial Transacciones";
         String detalleExito = "Transacciones cargadas correctamente para la cuenta '" + idCuenta + "'";
-        String detalleError = "No se encontro la cuenta '" + idCuenta + "' dentro del sistema";
 
         dtm = (DefaultTableModel) tblTransacciones.getModel();
         dtm.setRowCount(0);
@@ -44,8 +37,9 @@ public class HistorialTransaccionesController {
             Cuenta cuentaT = crearCuentaController.cuentas.get(i);
             if (cuentaT.getIdCuenta().equals(idCuenta)) {
                 Collections.reverse(cuentaT.getTransacciones());
-                for (int j = 1; j < cuentaT.getTransacciones().size(); j++) {
+                for (int j = 0; j < cuentaT.getTransacciones().size(); j++) {
                     Transaccion transaccion = cuentaT.getTransacciones().get(j);
+
                     Object[] datos = {
                         transaccion.getIdTransaccion(),
                         transaccion.getFechaHora(),

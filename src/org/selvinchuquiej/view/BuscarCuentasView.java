@@ -9,9 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.BuscarCuentasController;
-import org.selvinchuquiej.controller.CrearCuentaController;
-import org.selvinchuquiej.controller.RegistroClienteController;
-import org.selvinchuquiej.model.Cliente;
 import org.selvinchuquiej.system.Principal;
 import org.selvinchuquiej.system.Ventana;
 
@@ -22,12 +19,11 @@ import org.selvinchuquiej.system.Ventana;
 public class BuscarCuentasView extends javax.swing.JFrame implements Ventana {
 
     /**
-     * Creates new form BucarCuentasClientesView
+     * Creates new form BucarCuentasClientesView 
      */
     private Principal principal;
     private BuscarCuentasController buscarCuentasController;
     private BitacoraController bitacoraController;
-    private DefaultTableModel dtm;
 
     public BuscarCuentasView() {
     }

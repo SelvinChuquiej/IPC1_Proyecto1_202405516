@@ -167,7 +167,9 @@ public class RetirosView extends javax.swing.JFrame implements Ventana {
             retiroController.crearRetiro(retiroNew);
             cargarCuentas();
             txtMontoRetiro.setText("0");
-            JOptionPane.showMessageDialog(null, "Retiro realizado correctamente");
+
+            String mensaje = "Retiro  realizado correctamente";
+            JOptionPane.showMessageDialog(null, mensaje);
 
         } catch (Exception e) {
             String detalleVacio = "No se pudo relizar el retiro a la cuenta '" + cuenta.getIdCuenta() + "' ingrese un monto valido";

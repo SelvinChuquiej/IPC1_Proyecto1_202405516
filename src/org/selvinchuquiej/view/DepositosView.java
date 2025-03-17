@@ -5,12 +5,10 @@
 package org.selvinchuquiej.view;
 
 import java.awt.event.KeyEvent;
-import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import org.selvinchuquiej.controller.BitacoraController;
 import org.selvinchuquiej.controller.CrearCuentaController;
 import org.selvinchuquiej.controller.DepositosController;
-import org.selvinchuquiej.controller.RegistroClienteController;
 import org.selvinchuquiej.model.Cuenta;
 import org.selvinchuquiej.model.Transaccion;
 import org.selvinchuquiej.system.Principal;
@@ -26,7 +24,6 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
      * Creates new form DepositosView
      */
     private Principal principal;
-    private Transaccion transaccion;
     private CrearCuentaController crearCuentaController;
     private DepositosController depositosController;
     private BitacoraController bitacoraController;
@@ -213,7 +210,7 @@ public class DepositosView extends javax.swing.JFrame implements Ventana {
             public void run() {
                 new DepositosView().setVisible(true);
             }
-        }); 
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
